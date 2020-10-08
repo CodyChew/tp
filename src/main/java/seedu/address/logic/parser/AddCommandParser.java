@@ -15,14 +15,14 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Document;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Status;
-import seedu.address.model.person.Suspect;
-import seedu.address.model.person.Title;
-import seedu.address.model.person.Victim;
-import seedu.address.model.person.Witness;
+import seedu.address.model.investigationcase.Case;
+import seedu.address.model.investigationcase.Description;
+import seedu.address.model.investigationcase.Document;
+import seedu.address.model.investigationcase.Status;
+import seedu.address.model.investigationcase.Suspect;
+import seedu.address.model.investigationcase.Title;
+import seedu.address.model.investigationcase.Victim;
+import seedu.address.model.investigationcase.Witness;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -65,9 +65,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         List<Victim> victims = new ArrayList<>();
         List<Witness> witnesses = new ArrayList<>();
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        Person person = new Person(title, description, status, documents,
+        Case investigationCase = new Case(title, description, status, documents,
                 suspects, victims, witnesses, tagList);
-        return new AddCommand(person);
+        return new AddCommand(investigationCase);
     }
 
     /**

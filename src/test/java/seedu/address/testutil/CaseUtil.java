@@ -7,30 +7,30 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.Person;
+import seedu.address.logic.commands.EditCommand.EditCaseDescriptor;
+import seedu.address.model.investigationcase.Case;
 import seedu.address.model.tag.Tag;
 
 /**
  * A utility class for Person.
  */
-public class PersonUtil {
+public class CaseUtil {
 
     /**
      * Returns an add command string for adding the {@code person}.
      */
-    public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + AddCommand.TYPE_CASE + " " + getPersonDetails(person);
+    public static String getAddCommand(Case investigationCase) {
+        return AddCommand.COMMAND_WORD + " " + AddCommand.TYPE_CASE + " " + getPersonDetails(investigationCase);
     }
 
     /**
      * Returns the part of command string for the given {@code person}'s details.
      */
-    public static String getPersonDetails(Person person) {
+    public static String getPersonDetails(Case investigationCase) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_TITLE + person.getTitle().alphaNum + " ");
-        sb.append(PREFIX_STATUS + person.getStatus().name() + " ");
-        person.getTags().stream().forEach(
+        sb.append(PREFIX_TITLE + investigationCase.getTitle().alphaNum + " ");
+        sb.append(PREFIX_STATUS + investigationCase.getStatus().name() + " ");
+        investigationCase.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
         return sb.toString();
@@ -39,7 +39,7 @@ public class PersonUtil {
     /**
      * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
+    public static String getEditPersonDescriptorDetails(EditCaseDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getTitle().ifPresent(title -> sb.append(PREFIX_TITLE).append(title.alphaNum).append(" "));
         descriptor.getStatus().ifPresent(status -> sb.append(PREFIX_STATUS).append(status.name()).append(" "));

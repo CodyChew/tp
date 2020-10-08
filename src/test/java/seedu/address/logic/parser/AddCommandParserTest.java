@@ -18,59 +18,58 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalCases.AMY;
+import static seedu.address.testutil.TypicalCases.BOB;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Status;
-import seedu.address.model.person.Title;
+import seedu.address.model.investigationcase.Case;
+import seedu.address.model.investigationcase.Status;
+import seedu.address.model.investigationcase.Title;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.CaseBuilder;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Case expectedCase = new CaseBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + TYPE_CASE + NAME_DESC_BOB
                 + STATUS_DESC_BOB + TAG_DESC_FRIEND,
-                new AddCommand(expectedPerson));
+                new AddCommand(expectedCase));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, TYPE_CASE + NAME_DESC_AMY + NAME_DESC_BOB
                 + STATUS_DESC_BOB + TAG_DESC_FRIEND,
-                new AddCommand(expectedPerson));
+                new AddCommand(expectedCase));
 
         // multiple statuses - last status accepted
         assertParseSuccess(parser, TYPE_CASE + NAME_DESC_BOB
                 + STATUS_DESC_AMY + STATUS_DESC_BOB + TAG_DESC_FRIEND,
-                new AddCommand(expectedPerson));
+                new AddCommand(expectedCase));
 
         // multiple tags - all accepted
-        Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Case expectedCaseMultipleTags = new CaseBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
+
         assertParseSuccess(parser, TYPE_CASE + NAME_DESC_BOB
                 + STATUS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                new AddCommand(expectedPersonMultipleTags));
+                new AddCommand(expectedCaseMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, TYPE_CASE + NAME_DESC_AMY,
-                new AddCommand(expectedPerson));
+        Case expectedCase = new CaseBuilder(AMY).withTags().build();
+        assertParseSuccess(parser, TYPE_CASE + NAME_DESC_AMY, new AddCommand(expectedCase));
 
         // no status
-        expectedPerson = new PersonBuilder(expectedPerson).withStatus("active").build();
-        assertParseSuccess(parser, TYPE_CASE + NAME_DESC_AMY,
-                new AddCommand(expectedPerson));
+        expectedCase = new CaseBuilder(expectedCase).withStatus("active").build();
+        assertParseSuccess(parser, TYPE_CASE + NAME_DESC_AMY, new AddCommand(expectedCase));
     }
 
     @Test

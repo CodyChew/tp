@@ -9,8 +9,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Status;
-import seedu.address.model.person.Title;
+import seedu.address.model.investigationcase.Status;
+import seedu.address.model.investigationcase.Title;
 import seedu.address.model.tag.Tag;
 
 /**

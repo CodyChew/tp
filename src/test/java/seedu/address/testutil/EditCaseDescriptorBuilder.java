@@ -5,46 +5,46 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Status;
-import seedu.address.model.person.Suspect;
-import seedu.address.model.person.Title;
-import seedu.address.model.person.Victim;
+import seedu.address.logic.commands.EditCommand.EditCaseDescriptor;
+import seedu.address.model.investigationcase.Case;
+import seedu.address.model.investigationcase.Name;
+import seedu.address.model.investigationcase.Status;
+import seedu.address.model.investigationcase.Suspect;
+import seedu.address.model.investigationcase.Title;
+import seedu.address.model.investigationcase.Victim;
 import seedu.address.model.tag.Tag;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.
  */
-public class EditPersonDescriptorBuilder {
+public class EditCaseDescriptorBuilder {
 
-    private EditPersonDescriptor descriptor;
+    private EditCaseDescriptor descriptor;
 
-    public EditPersonDescriptorBuilder() {
-        descriptor = new EditPersonDescriptor();
+    public EditCaseDescriptorBuilder() {
+        descriptor = new EditCaseDescriptor();
     }
 
-    public EditPersonDescriptorBuilder(EditPersonDescriptor descriptor) {
-        this.descriptor = new EditPersonDescriptor(descriptor);
+    public EditCaseDescriptorBuilder(EditCaseDescriptor descriptor) {
+        this.descriptor = new EditCaseDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
      */
-    public EditPersonDescriptorBuilder(Person person) {
-        descriptor = new EditPersonDescriptor();
-        descriptor.setTitle(person.getTitle());
-        descriptor.setStatus(person.getStatus());
-        descriptor.setSuspects(person.getSuspects());
-        descriptor.setVictims(person.getVictims());
-        descriptor.setTags(person.getTags());
+    public EditCaseDescriptorBuilder(Case investigationCase) {
+        descriptor = new EditCaseDescriptor();
+        descriptor.setTitle(investigationCase.getTitle());
+        descriptor.setStatus(investigationCase.getStatus());
+        descriptor.setSuspects(investigationCase.getSuspects());
+        descriptor.setVictims(investigationCase.getVictims());
+        descriptor.setTags(investigationCase.getTags());
     }
 
     /**
      * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withTitle(String title) {
+    public EditCaseDescriptorBuilder withTitle(String title) {
         descriptor.setTitle(new Title(title));
         return this;
     }
@@ -52,7 +52,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Status} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withStatus(String status) {
+    public EditCaseDescriptorBuilder withStatus(String status) {
         descriptor.setStatus(Status.createStatus(status));
         return this;
     }
@@ -61,7 +61,7 @@ public class EditPersonDescriptorBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
-    public EditPersonDescriptorBuilder withTags(String... tags) {
+    public EditCaseDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
         return this;
@@ -71,7 +71,7 @@ public class EditPersonDescriptorBuilder {
      * Parses the {@code suspects} into a {@code List<Suspect>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
-    public EditPersonDescriptorBuilder withSuspects(String... suspect) {
+    public EditCaseDescriptorBuilder withSuspects(String... suspect) {
         List<Suspect> suspects = Stream.of(suspect).map(string -> new Suspect(new Name(string)))
                 .collect(Collectors.toList());
         descriptor.setSuspects(suspects);
@@ -82,14 +82,14 @@ public class EditPersonDescriptorBuilder {
      * Parses the {@code victims} into a {@code List<Victim>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
-    public EditPersonDescriptorBuilder withVictims(String... victims) {
+    public EditCaseDescriptorBuilder withVictims(String... victims) {
         List<Victim> victim = Stream.of(victims).map(string -> new Victim(new Name(string)))
                 .collect(Collectors.toList());
         descriptor.setVictims(victim);
         return this;
     }
 
-    public EditPersonDescriptor build() {
+    public EditCaseDescriptor build() {
         return descriptor;
     }
 }

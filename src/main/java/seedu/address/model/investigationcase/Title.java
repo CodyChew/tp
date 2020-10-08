@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.investigationcase;
 
 /**
  * Represents a Title of a Case in PIVOT.

@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.investigationcase;
 
 public enum Status {
     ACTIVE, COLD, CLOSED;

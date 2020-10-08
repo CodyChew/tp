@@ -12,21 +12,21 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.investigationcase.Case;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
  */
-public class TypicalPersons {
+public class TypicalCases {
 
-    public static final Person ALICE = new PersonBuilder().withTitle("Alice Pauline")
+    public static final Case ALICE = new CaseBuilder().withTitle("Alice Pauline")
             .withDocument("name", "test1.txt")
             .withStatus("COLD")
             .withVictims("Tom")
             .withWitnesses("Janice")
             .withTags("friends")
             .build();
-    public static final Person BENSON = new PersonBuilder().withTitle("Benson Meier")
+    public static final Case BENSON = new CaseBuilder().withTitle("Benson Meier")
             .withStatus("CLOSED")
             .withDocument("name", "test1.txt")
             .withVictims("Tom")
@@ -34,47 +34,47 @@ public class TypicalPersons {
             .withTags("owesMoney", "friends")
             .build();
 
-    public static final Person CARL = new PersonBuilder().withTitle("Carl Kurz")
+    public static final Case CARL = new CaseBuilder().withTitle("Carl Kurz")
             .build();
-    public static final Person DANIEL = new PersonBuilder().withTitle("Daniel Meier")
+    public static final Case DANIEL = new CaseBuilder().withTitle("Daniel Meier")
             .withTags("friends").build();
-    public static final Person ELLE = new PersonBuilder().withTitle("Elle Meyer")
+    public static final Case ELLE = new CaseBuilder().withTitle("Elle Meyer")
             .build();
-    public static final Person FIONA = new PersonBuilder().withTitle("Fiona Kunz")
+    public static final Case FIONA = new CaseBuilder().withTitle("Fiona Kunz")
             .build();
-    public static final Person GEORGE = new PersonBuilder().withTitle("George Best")
+    public static final Case GEORGE = new CaseBuilder().withTitle("George Best")
             .build();
 
     // Manually added
-    public static final Person HOON = new PersonBuilder().withTitle("Hoon Meier")
+    public static final Case HOON = new CaseBuilder().withTitle("Hoon Meier")
             .build();
-    public static final Person IDA = new PersonBuilder().withTitle("Ida Mueller")
+    public static final Case IDA = new CaseBuilder().withTitle("Ida Mueller")
             .build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
-    public static final Person AMY = new PersonBuilder().withTitle(VALID_NAME_AMY)
+    public static final Case AMY = new CaseBuilder().withTitle(VALID_NAME_AMY)
             .withStatus(VALID_STATUS_AMY)
             .withTags(VALID_TAG_FRIEND).build();
-    public static final Person BOB = new PersonBuilder().withTitle(VALID_NAME_BOB)
+    public static final Case BOB = new CaseBuilder().withTitle(VALID_NAME_BOB)
             .withStatus(VALID_STATUS_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalCases() {} // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
+        for (Case investigationCase : getTypicalPersons()) {
+            ab.addCase(investigationCase);
         }
         return ab;
     }
 
-    public static List<Person> getTypicalPersons() {
+    public static List<Case> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

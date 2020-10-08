@@ -8,16 +8,16 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Document;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Reference;
-import seedu.address.model.person.Status;
-import seedu.address.model.person.Suspect;
-import seedu.address.model.person.Title;
-import seedu.address.model.person.Victim;
-import seedu.address.model.person.Witness;
+import seedu.address.model.investigationcase.Case;
+import seedu.address.model.investigationcase.Description;
+import seedu.address.model.investigationcase.Document;
+import seedu.address.model.investigationcase.Name;
+import seedu.address.model.investigationcase.Reference;
+import seedu.address.model.investigationcase.Status;
+import seedu.address.model.investigationcase.Suspect;
+import seedu.address.model.investigationcase.Title;
+import seedu.address.model.investigationcase.Victim;
+import seedu.address.model.investigationcase.Witness;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,25 +32,25 @@ public class SampleDataUtil {
     private static List<Victim> sampleVictims = getVictimList("Tom", "John");
     private static Description sampleDescription = new Description("");
 
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Title("Alex Yeoh"), sampleDescription,
+    public static Case[] getSampleCases() {
+        return new Case[] {
+            new Case(new Title("Alex Yeoh"), sampleDescription,
                     Status.createStatus("active"), sampleDocuments,
                     new ArrayList<>(), sampleVictims,
                     sampleWitnesses, getTagSet("friends")),
-            new Person(new Title("Bernice Yu"), sampleDescription,
+            new Case(new Title("Bernice Yu"), sampleDescription,
                     Status.createStatus("closed"), sampleDocuments,
                     new ArrayList<>(), sampleVictims, sampleWitnesses, getTagSet("colleagues", "friends")),
-            new Person(new Title("Charlotte Oliveiro"), sampleDescription,
+            new Case(new Title("Charlotte Oliveiro"), sampleDescription,
                     Status.createStatus("cold"), sampleDocuments,
                     new ArrayList<>(), sampleVictims, sampleWitnesses, getTagSet("neighbours")),
-            new Person(new Title("David Li"), sampleDescription,
+            new Case(new Title("David Li"), sampleDescription,
                     Status.createStatus("active"), sampleDocuments,
                     new ArrayList<>(), sampleVictims, sampleWitnesses, getTagSet("family")),
-            new Person(new Title("Irfan Ibrahim"), sampleDescription,
+            new Case(new Title("Irfan Ibrahim"), sampleDescription,
                     Status.createStatus("active"), sampleDocuments,
                     new ArrayList<>(), sampleVictims, sampleWitnesses, getTagSet("classmates")),
-            new Person(new Title("Roy Balakrishnan"), sampleDescription,
+            new Case(new Title("Roy Balakrishnan"), sampleDescription,
                     Status.createStatus("active"), sampleDocuments,
                     new ArrayList<>(), sampleVictims, sampleWitnesses, getTagSet("colleagues"))
         };
@@ -58,8 +58,8 @@ public class SampleDataUtil {
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+        for (Case sampleCase : getSampleCases()) {
+            sampleAb.addCase(sampleCase);
         }
         return sampleAb;
     }

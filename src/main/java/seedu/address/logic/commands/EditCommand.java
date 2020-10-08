@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CASES;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,25 +18,25 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Document;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Status;
-import seedu.address.model.person.Suspect;
-import seedu.address.model.person.Title;
-import seedu.address.model.person.Victim;
-import seedu.address.model.person.Witness;
+import seedu.address.model.investigationcase.Case;
+import seedu.address.model.investigationcase.Description;
+import seedu.address.model.investigationcase.Document;
+import seedu.address.model.investigationcase.Status;
+import seedu.address.model.investigationcase.Suspect;
+import seedu.address.model.investigationcase.Title;
+import seedu.address.model.investigationcase.Victim;
+import seedu.address.model.investigationcase.Witness;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing case in the address book.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the case identified "
+            + "by the index number used in the displayed case list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_TITLE + "TITLE] "
@@ -44,63 +44,63 @@ public class EditCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 ";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_CASE_SUCCESS = "Edited Case: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_CASE = "This case already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditCaseDescriptor editCaseDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param index of the case in the filtered case list to edit
+     * @param editCaseDescriptor details to edit the case with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditCaseDescriptor editCaseDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editCaseDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editCaseDescriptor = new EditCaseDescriptor(editCaseDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Case> lastShownList = model.getFilteredCaseList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_CASE_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Case caseToEdit = lastShownList.get(index.getZeroBased());
+        Case editedCase = createEditedCase(caseToEdit, editCaseDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!caseToEdit.isSameCase(editedCase) && model.hasCase(editedCase)) {
+            throw new CommandException(MESSAGE_DUPLICATE_CASE);
         }
 
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        model.setCase(caseToEdit, editedCase);
+        model.updateFilteredCaseList(PREDICATE_SHOW_ALL_CASES);
+        return new CommandResult(String.format(MESSAGE_EDIT_CASE_SUCCESS, editedCase));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Case} with the details of {@code caseToEdit}
+     * edited with {@code editCaseDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static Case createEditedCase(Case caseToEdit, EditCaseDescriptor editCaseDescriptor) {
+        assert caseToEdit != null;
 
-        Title updatedTitle = editPersonDescriptor.getTitle().orElse(personToEdit.getTitle());
+        Title updatedTitle = editCaseDescriptor.getTitle().orElse(caseToEdit.getTitle());
         Description updatedDescription = new Description("");
-        Status updatedStatus = editPersonDescriptor.getStatus().orElse(personToEdit.getStatus());
-        List<Document> updatedDocuments = editPersonDescriptor.getDocuments().orElse(personToEdit.getDocuments());
-        List<Suspect> updatedSuspects = editPersonDescriptor.getSuspects().orElse(personToEdit.getSuspects());
-        List<Victim> updatedVictims = editPersonDescriptor.getVictims().orElse(personToEdit.getVictims());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Status updatedStatus = editCaseDescriptor.getStatus().orElse(caseToEdit.getStatus());
+        List<Document> updatedDocuments = editCaseDescriptor.getDocuments().orElse(caseToEdit.getDocuments());
+        List<Suspect> updatedSuspects = editCaseDescriptor.getSuspects().orElse(caseToEdit.getSuspects());
+        List<Victim> updatedVictims = editCaseDescriptor.getVictims().orElse(caseToEdit.getVictims());
+        Set<Tag> updatedTags = editCaseDescriptor.getTags().orElse(caseToEdit.getTags());
         List<Witness> updatedWitnesses =
-                editPersonDescriptor.getWitnesses().orElse(personToEdit.getWitnesses());
-        return new Person(updatedTitle, updatedDescription, updatedStatus, updatedDocuments,
+                editCaseDescriptor.getWitnesses().orElse(caseToEdit.getWitnesses());
+        return new Case(updatedTitle, updatedDescription, updatedStatus, updatedDocuments,
                 updatedSuspects, updatedVictims, updatedWitnesses, updatedTags);
     }
 
@@ -119,14 +119,14 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editCaseDescriptor.equals(e.editCaseDescriptor);
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the case with. Each non-empty field value will replace the
+     * corresponding field value of the case.
      */
-    public static class EditPersonDescriptor {
+    public static class EditCaseDescriptor {
         private Title title;
         private Description description;
         private Status status;
@@ -136,13 +136,13 @@ public class EditCommand extends Command {
         private Set<Tag> tags;
         private ArrayList<Witness> witnesses;
 
-        public EditPersonDescriptor() {}
+        public EditCaseDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditCaseDescriptor(EditCaseDescriptor toCopy) {
             setTitle(toCopy.title);
             setDescription(toCopy.description);
             setStatus(toCopy.status);
@@ -265,12 +265,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditCaseDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditCaseDescriptor e = (EditCaseDescriptor) other;
 
             return getTitle().equals(e.getTitle())
                     && getStatus().equals(e.getStatus())

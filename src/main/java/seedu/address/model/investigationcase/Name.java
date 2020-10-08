@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.investigationcase;
 
 /**
  * Represents a Person's name in the address book.

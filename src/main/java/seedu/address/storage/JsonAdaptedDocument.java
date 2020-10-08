@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Document;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Reference;
+import seedu.address.model.investigationcase.Document;
+import seedu.address.model.investigationcase.Name;
+import seedu.address.model.investigationcase.Reference;
 
 /**
  * Jackson-friendly version of {@link Document}.

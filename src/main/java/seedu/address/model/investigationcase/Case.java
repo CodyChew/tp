@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.investigationcase;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -12,10 +12,10 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Case in PIVOT.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Case {
 
     // Identity fields
     private final Title title;
@@ -32,11 +32,10 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Title title, Description description, Status status,
-                  List<Document> documents, List<Suspect> suspects,
-                  List<Victim> victims, List<Witness> witnesses, Set<Tag> tags) {
-        requireAllNonNull(title, description, status, documents,
-                suspects, victims, witnesses, tags);
+
+    public Case(Title title, Description description, Status status, List<Document> documents,
+                List<Suspect> suspects, List<Victim> victims, List<Witness> witnesses, Set<Tag> tags) {
+        requireAllNonNull(title, description, status, documents, suspects, victims, witnesses, tags);
         this.title = title;
         this.description = description;
         this.status = status;
@@ -85,22 +84,22 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both cases of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two cases.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSameCase(Case otherCase) {
+        if (otherCase == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getTitle().equals(getTitle())
-                && otherPerson.getStatus().equals(getStatus());
+        return otherCase != null
+                && otherCase.getTitle().equals(getTitle())
+                && otherCase.getStatus().equals(getStatus());
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both cases have the same identity and data fields.
+     * This defines a stronger notion of equality between two cases.
      */
     @Override
     public boolean equals(Object other) {
@@ -108,19 +107,19 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Case)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getTitle().equals(getTitle())
-                && otherPerson.getDescription().equals(getDescription())
-                && otherPerson.getStatus().equals(getStatus())
-                && otherPerson.getDocuments().equals(getDocuments())
-                && otherPerson.getSuspects().equals(getSuspects())
-                && otherPerson.getVictims().equals(getVictims())
-                && otherPerson.getWitnesses().equals(getWitnesses())
-                && otherPerson.getTags().equals(getTags());
+        Case otherCase = (Case) other;
+        return otherCase.getTitle().equals(getTitle())
+                && otherCase.getDescription().equals(getDescription())
+                && otherCase.getStatus().equals(getStatus())
+                && otherCase.getDocuments().equals(getDocuments())
+                && otherCase.getSuspects().equals(getSuspects())
+                && otherCase.getVictims().equals(getVictims())
+                && otherCase.getWitnesses().equals(getWitnesses())
+                && otherCase.getTags().equals(getTags());
     }
 
     @Override
