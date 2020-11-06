@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_CASE_PAGE;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_VALID_INDEX;
 import static seedu.pivot.commons.core.UserMessages.MESSAGE_DUPLICATE_WITNESS;
+import static seedu.pivot.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_NAME;
@@ -25,6 +26,9 @@ import seedu.pivot.model.Model;
 import seedu.pivot.model.investigationcase.Case;
 import seedu.pivot.model.investigationcase.caseperson.Witness;
 
+/**
+ * Represents an Add command for adding Witnesses into Cases in PIVOT.
+ */
 public class AddWitnessCommand extends AddCommand implements Undoable {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + TYPE_WITNESS
@@ -50,16 +54,14 @@ public class AddWitnessCommand extends AddCommand implements Undoable {
     private final Witness witness;
 
     /**
-     * Creates an AddWitnessCommand to add the specified {@code Case}
+     * Creates an AddWitnessCommand to add the specified {@code Witness}
      *
      * @param witness The witness to be added.
      */
     public AddWitnessCommand(Index index, Witness witness) {
-        requireNonNull(index);
-        requireNonNull(witness);
+        requireAllNonNull(index, witness);
         this.index = index;
         this.witness = witness;
-
     }
 
     @Override

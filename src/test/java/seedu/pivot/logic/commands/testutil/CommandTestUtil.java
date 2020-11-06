@@ -6,7 +6,6 @@ import static seedu.pivot.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.pivot.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.pivot.testutil.Assert.assertThrows;
 
@@ -17,13 +16,11 @@ import java.util.List;
 import seedu.pivot.commons.core.index.Index;
 import seedu.pivot.logic.commands.Command;
 import seedu.pivot.logic.commands.CommandResult;
-import seedu.pivot.logic.commands.EditCommand;
 import seedu.pivot.logic.commands.exceptions.CommandException;
 import seedu.pivot.model.Model;
 import seedu.pivot.model.Pivot;
 import seedu.pivot.model.investigationcase.Case;
 import seedu.pivot.model.investigationcase.DetailsContainsKeywordsPredicate;
-import seedu.pivot.testutil.EditCaseDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -43,13 +40,10 @@ public class CommandTestUtil {
 
     public static final String PREFIX_WITH_STATUS_AMY = " " + PREFIX_STATUS + VALID_STATUS_AMY;
     public static final String PREFIX_WITH_STATUS_BOB = " " + PREFIX_STATUS + VALID_STATUS_BOB;
-    public static final String PREFIX_WITH_TAG_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String PREFIX_WITH_TAG_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
     // '&' not allowed in title
     public static final String PREFIX_WITH_INVALID_TITLE_AMY = " " + PREFIX_TITLE + "James&";
     public static final String PREFIX_WITH_INVALID_STATUS = " " + PREFIX_STATUS + "status";
-    public static final String PREFIX_WITH_INVALID_TAG = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -71,18 +65,6 @@ public class CommandTestUtil {
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + INVALID_CASEPERSON_NAME;
     public static final String SEX_DESC_BOB = " " + PREFIX_SEX + VALID_CASEPERSON_SEX_BOB;
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_CASEPERSON_PHONE;
-
-    public static final EditCommand.EditCaseDescriptor EDIT_CASE_DESCRIPTOR_AMY;
-    public static final EditCommand.EditCaseDescriptor EDIT_CASE_DESCRIPTOR_BOB;
-
-    static {
-        EDIT_CASE_DESCRIPTOR_AMY = new EditCaseDescriptorBuilder().withTitle(VALID_TITLE_AMY)
-                .withStatus(VALID_STATUS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        EDIT_CASE_DESCRIPTOR_BOB = new EditCaseDescriptorBuilder().withTitle(VALID_TITLE_BOB)
-                .withStatus(VALID_STATUS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-    }
 
     /**
      * Executes the given {@code command}, confirms that <br>

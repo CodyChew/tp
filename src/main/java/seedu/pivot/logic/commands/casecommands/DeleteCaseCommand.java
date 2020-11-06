@@ -21,7 +21,7 @@ import seedu.pivot.model.Model;
 import seedu.pivot.model.investigationcase.Case;
 
 /**
- * Deletes a case identified using it's displayed index from PIVOT.
+ * Represents a Delete command for deleting a Case from PIVOT based on its Index.
  */
 public class DeleteCaseCommand extends DeleteCommand implements Undoable {
 

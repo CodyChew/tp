@@ -1,5 +1,6 @@
 package seedu.pivot.model.investigationcase;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.pivot.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -61,12 +62,29 @@ public class Case {
         this.archiveStatus = archiveStatus;
     }
 
+    /**
+     * Creates a deep copy of a Case.
+     * @param toCopy Original case to be copied.
+     */
+    public Case(Case toCopy) {
+        requireNonNull(toCopy);
+        this.title = toCopy.getTitle();
+        this.description = toCopy.getDescription();
+        this.status = toCopy.getStatus();
+        this.documents.addAll(toCopy.getDocuments());
+        this.suspects.addAll(toCopy.getSuspects());
+        this.victims.addAll(toCopy.getVictims());
+        this.tags.addAll(toCopy.getTags());
+        this.witnesses.addAll(toCopy.getWitnesses());
+        this.archiveStatus = toCopy.getArchiveStatus();
+    }
+
     public Title getTitle() {
-        return title;
+        return new Title(title.getAlphaNum());
     }
 
     public Description getDescription() {
-        return description;
+        return new Description(description.getDescription());
     }
 
     public Status getStatus() {

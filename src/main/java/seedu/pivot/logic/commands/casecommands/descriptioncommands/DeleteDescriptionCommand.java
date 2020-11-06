@@ -20,6 +20,9 @@ import seedu.pivot.model.Model;
 import seedu.pivot.model.investigationcase.Case;
 import seedu.pivot.model.investigationcase.Description;
 
+/**
+ * Represents a Delete command for deleting Description from a Case in PIVOT based on its Index.
+ */
 public class DeleteDescriptionCommand extends DeleteCommand implements Undoable {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + TYPE_DESC
             + ": Deletes the description of the opened case.\n"

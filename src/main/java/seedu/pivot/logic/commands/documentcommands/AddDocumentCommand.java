@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_CASE_PAGE;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_VALID_INDEX;
 import static seedu.pivot.commons.core.UserMessages.MESSAGE_DUPLICATE_DOCUMENT;
+import static seedu.pivot.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_REFERENCE;
 
@@ -22,6 +23,9 @@ import seedu.pivot.model.Model;
 import seedu.pivot.model.investigationcase.Case;
 import seedu.pivot.model.investigationcase.Document;
 
+/**
+ * Represents an Add command for adding Documents into Cases in PIVOT.
+ */
 public class AddDocumentCommand extends AddCommand implements Undoable {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + TYPE_DOC
@@ -47,9 +51,7 @@ public class AddDocumentCommand extends AddCommand implements Undoable {
      * @param doc document to be added.
      */
     public AddDocumentCommand(Index index, Document doc) {
-        requireNonNull(index);
-        requireNonNull(doc);
-
+        requireAllNonNull(index, doc);
         this.index = index;
         this.doc = doc;
     }

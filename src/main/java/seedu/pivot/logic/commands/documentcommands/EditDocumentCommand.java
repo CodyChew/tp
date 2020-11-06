@@ -27,6 +27,9 @@ import seedu.pivot.model.investigationcase.Document;
 import seedu.pivot.model.investigationcase.Reference;
 import seedu.pivot.model.investigationcase.caseperson.Name;
 
+/**
+ * Represents an Edit command for editing a Document in a Case in PIVOT.
+ */
 public class EditDocumentCommand extends EditCommand implements Undoable {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + TYPE_DOC
@@ -84,9 +87,7 @@ public class EditDocumentCommand extends EditCommand implements Undoable {
         List<Document> documents = stateCase.getDocuments();
 
         //document index validation in model
-        int zeroIndex = documentIndex.getZeroBased();
-        boolean isOutOfBounds = zeroIndex >= documents.size();
-        if (isOutOfBounds) {
+        if (documentIndex.getZeroBased() >= documents.size()) {
             logger.info("Invalid index: " + documentIndex.getOneBased());
             throw new CommandException(UserMessages.MESSAGE_INVALID_DOCUMENT_DISPLAYED_INDEX);
         }

@@ -3,6 +3,7 @@ package seedu.pivot.logic.commands.casecommands;
 import static java.util.Objects.requireNonNull;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_CASE_PAGE;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_VALID_INDEX;
+import static seedu.pivot.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import java.util.List;
@@ -21,7 +22,7 @@ import seedu.pivot.model.investigationcase.Case;
 import seedu.pivot.model.investigationcase.Status;
 
 /**
- * Edits the { @code Status } to an opened { @case Case } in PIVOT.
+ * Represents an Edit command for editing Status of a Case in PIVOT.
  */
 public class EditStatusCommand extends EditCommand implements Undoable {
 
@@ -47,8 +48,7 @@ public class EditStatusCommand extends EditCommand implements Undoable {
      * @param status Status to be updated.
      */
     public EditStatusCommand(Index index, Status status) {
-        requireNonNull(index);
-        requireNonNull(status);
+        requireAllNonNull(index, status);
         this.index = index;
         this.status = status;
     }

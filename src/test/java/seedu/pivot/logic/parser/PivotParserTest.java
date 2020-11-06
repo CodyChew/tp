@@ -54,15 +54,6 @@ public class PivotParserTest {
         assertEquals(new DeleteCaseCommand(FIRST_INDEX), command);
     }
 
-    //    @Test
-    //    public void parseCommand_edit() throws Exception {
-    //        Case investigationCase = new CaseBuilder().build();
-    //        EditCaseDescriptor descriptor = new EditCaseDescriptorBuilder(investigationCase).build();
-    //        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-    //                + INDEX_FIRST_PERSON.getOneBased() + " " + CaseUtil.getEditCaseDescriptorDetails(descriptor));
-    //        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
-    //    }
-
     @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);

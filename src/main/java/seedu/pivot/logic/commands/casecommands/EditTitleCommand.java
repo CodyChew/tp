@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_CASE_PAGE;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_VALID_INDEX;
 import static seedu.pivot.commons.core.UserMessages.MESSAGE_DUPLICATE_TITLE;
+import static seedu.pivot.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.List;
@@ -22,7 +23,7 @@ import seedu.pivot.model.investigationcase.Case;
 import seedu.pivot.model.investigationcase.Title;
 
 /**
- * Edits the { @code Title } to an opened { @case Case } in PIVOT.
+ * Represents an Edit command for editing Title of a Case in PIVOT.
  */
 public class EditTitleCommand extends EditCommand implements Undoable {
 
@@ -48,8 +49,7 @@ public class EditTitleCommand extends EditCommand implements Undoable {
      * @param title Title to be updated.
      */
     public EditTitleCommand(Index index, Title title) {
-        requireNonNull(index);
-        requireNonNull(title);
+        requireAllNonNull(index, title);
         this.index = index;
         this.title = title;
     }

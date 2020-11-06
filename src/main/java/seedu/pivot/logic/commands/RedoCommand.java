@@ -6,6 +6,9 @@ import seedu.pivot.logic.commands.exceptions.CommandException;
 import seedu.pivot.logic.state.StateManager;
 import seedu.pivot.model.Model;
 
+/**
+ * Represents a Redo command to redo user's previous undo.
+ */
 public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
 

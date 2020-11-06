@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_CASE_PAGE;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_VALID_INDEX;
 import static seedu.pivot.commons.core.UserMessages.MESSAGE_DUPLICATE_VICTIM;
+import static seedu.pivot.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_NAME;
@@ -25,6 +26,9 @@ import seedu.pivot.model.Model;
 import seedu.pivot.model.investigationcase.Case;
 import seedu.pivot.model.investigationcase.caseperson.Victim;
 
+/**
+ * Represents an Add command for adding Victims into Cases in PIVOT.
+ */
 public class AddVictimCommand extends AddCommand implements Undoable {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + TYPE_VICTIM
@@ -50,13 +54,12 @@ public class AddVictimCommand extends AddCommand implements Undoable {
     private final Victim victim;
 
     /**
-     * Creates an AddVictimCommand to add the specified {@code Case}
+     * Creates an AddVictimCommand to add the specified {@code Victim}
      *
      * @param victim The victim to be added.
      */
     public AddVictimCommand(Index index, Victim victim) {
-        requireNonNull(index);
-        requireNonNull(victim);
+        requireAllNonNull(index, victim);
         this.index = index;
         this.victim = victim;
 

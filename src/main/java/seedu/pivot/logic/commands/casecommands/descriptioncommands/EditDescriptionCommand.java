@@ -3,6 +3,7 @@ package seedu.pivot.logic.commands.casecommands.descriptioncommands;
 import static java.util.Objects.requireNonNull;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_CASE_PAGE;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_VALID_INDEX;
+import static seedu.pivot.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_DESC;
 
 import java.util.List;
@@ -20,6 +21,9 @@ import seedu.pivot.model.Model;
 import seedu.pivot.model.investigationcase.Case;
 import seedu.pivot.model.investigationcase.Description;
 
+/**
+ * Represents an Edit command for editing a Description in a Case in PIVOT.
+ */
 public class EditDescriptionCommand extends EditCommand implements Undoable {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + TYPE_DESC
@@ -47,8 +51,7 @@ public class EditDescriptionCommand extends EditCommand implements Undoable {
      * @param description Description to be updated.
      */
     public EditDescriptionCommand(Index index, Description description) {
-        requireNonNull(index);
-        requireNonNull(description);
+        requireAllNonNull(index, description);
         this.index = index;
         this.description = description;
     }

@@ -106,8 +106,8 @@ public class VersionedPivot extends Pivot {
      * Removes all states after the current state.
      */
     public void purgeStates() {
-        int stateAfterCurrent = currentStatePointer + 1;
-        for (int i = stateAfterCurrent; i < pivotStateList.size(); i++) {
+        int len = pivotStateList.size();
+        for (int i = len - 1; i > currentStatePointer; i--) {
             pivotStateList.remove(i);
         }
 
@@ -163,12 +163,6 @@ public class VersionedPivot extends Pivot {
         }
 
         VersionedPivot otherVersionedPivot = (VersionedPivot) other;
-        System.out.println("versioned");
-        System.out.println(otherVersionedPivot.getPivotStateList().equals(getPivotStateList()));
-        System.out.println(otherVersionedPivot.getCurrentStatePointer() == getCurrentStatePointer());
-        System.out.println(otherVersionedPivot.getCommandMessageResult().equals(getCommandMessageResult()));
-        System.out.println(otherVersionedPivot.getCommandResult() == getCommandResult()
-                || otherVersionedPivot.getCommandResult().equals(getCommandResult()));
         return otherVersionedPivot.getPivotStateList().equals(getPivotStateList())
                 && otherVersionedPivot.getCurrentStatePointer() == getCurrentStatePointer()
                 && otherVersionedPivot.getCommandMessageResult().equals(getCommandMessageResult())

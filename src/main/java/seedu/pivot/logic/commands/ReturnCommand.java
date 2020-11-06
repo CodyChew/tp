@@ -7,7 +7,7 @@ import seedu.pivot.logic.state.StateManager;
 import seedu.pivot.model.Model;
 
 /**
- * Returns the program to the Main Page.
+ * Represents a Return command to return users to the Main Page in PIVOT.
  */
 public class ReturnCommand extends Command {
 

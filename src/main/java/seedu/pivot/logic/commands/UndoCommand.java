@@ -6,6 +6,9 @@ import seedu.pivot.logic.commands.exceptions.CommandException;
 import seedu.pivot.logic.state.StateManager;
 import seedu.pivot.model.Model;
 
+/**
+ * Represents an Undo command to undo user's previous command.
+ */
 public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
 

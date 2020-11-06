@@ -32,6 +32,9 @@ import seedu.pivot.model.investigationcase.caseperson.Phone;
 import seedu.pivot.model.investigationcase.caseperson.Sex;
 import seedu.pivot.model.investigationcase.caseperson.Witness;
 
+/**
+ * Represents an Edit command for editing a Witness in a Case in PIVOT.
+ */
 public class EditWitnessCommand extends EditPersonCommand implements Undoable {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + TYPE_WITNESS
@@ -101,7 +104,8 @@ public class EditWitnessCommand extends EditPersonCommand implements Undoable {
     }
 
     private Witness createEditedPerson(Witness witnessToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert witnessToEdit != null;
+        assert witnessToEdit != null : "Witness provided is null";
+        assert editPersonDescriptor != null : "EditPersonDescriptor provided is null";
 
         Name updatedName = editPersonDescriptor.getName().orElse(witnessToEdit.getName());
         Sex updatedSex = editPersonDescriptor.getSex().orElse(witnessToEdit.getSex());

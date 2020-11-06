@@ -3,6 +3,7 @@ package seedu.pivot.logic.commands.witnesscommands;
 import static java.util.Objects.requireNonNull;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_CASE_PAGE;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_VALID_INDEX;
+import static seedu.pivot.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.pivot.model.Model.PREDICATE_SHOW_DEFAULT_CASES;
 
 import java.util.List;
@@ -22,7 +23,7 @@ import seedu.pivot.model.investigationcase.Case;
 import seedu.pivot.model.investigationcase.caseperson.Witness;
 
 /**
- * Deletes a case identified using it's displayed index from PIVOT.
+ * Represents a Delete command for deleting Witnesses from a Case in PIVOT based on its Index.
  */
 public class DeleteWitnessCommand extends DeleteCommand implements Undoable {
 
@@ -35,13 +36,12 @@ public class DeleteWitnessCommand extends DeleteCommand implements Undoable {
     private final Index witnessIndex;
 
     /**
-     * Creates a DeleteWitnessCommand to delete the witness at specified index, in the case at specified index.
+     * Creates a DeleteWitnessCommand to delete the witness from the case at specified index.
      * @param caseIndex The index of the case to delete the witness.
      * @param witnessIndex The index of the witness to be deleted.
      */
     public DeleteWitnessCommand(Index caseIndex, Index witnessIndex) {
-        requireNonNull(caseIndex);
-        requireNonNull(witnessIndex);
+        requireAllNonNull(caseIndex, witnessIndex);
         this.caseIndex = caseIndex;
         this.witnessIndex = witnessIndex;
     }

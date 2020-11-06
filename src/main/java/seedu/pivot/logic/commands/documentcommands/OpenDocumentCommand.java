@@ -1,6 +1,5 @@
 package seedu.pivot.logic.commands.documentcommands;
 
-
 import static java.util.Objects.requireNonNull;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_CASE_PAGE;
 
@@ -21,6 +20,9 @@ import seedu.pivot.model.investigationcase.Case;
 import seedu.pivot.model.investigationcase.Document;
 import seedu.pivot.model.investigationcase.Reference;
 
+/**
+ * Represents an Open command for opening Documents in PIVOT based on its Index and Reference.
+ */
 public class OpenDocumentCommand extends OpenCommand {
 
     public static final String MESSAGE_OPEN_DOCUMENT_SUCCESS = "Opened Document: %1$s";

@@ -32,6 +32,9 @@ import seedu.pivot.model.investigationcase.caseperson.Phone;
 import seedu.pivot.model.investigationcase.caseperson.Sex;
 import seedu.pivot.model.investigationcase.caseperson.Suspect;
 
+/**
+ * Represents an Edit command for editing a Suspect in a Case in PIVOT.
+ */
 public class EditSuspectCommand extends EditPersonCommand implements Undoable {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + TYPE_SUSPECT

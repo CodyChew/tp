@@ -3,6 +3,7 @@ package seedu.pivot.logic.commands.casecommands.descriptioncommands;
 import static java.util.Objects.requireNonNull;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_CASE_PAGE;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_VALID_INDEX;
+import static seedu.pivot.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_DESC;
 
 import java.util.List;
@@ -21,7 +22,7 @@ import seedu.pivot.model.investigationcase.Case;
 import seedu.pivot.model.investigationcase.Description;
 
 /**
- * Adds a Description to an opened Case in PIVOT.
+ * Represents an Add command for adding Description into Cases in PIVOT.
  */
 public class AddDescriptionCommand extends AddCommand implements Undoable {
 
@@ -49,8 +50,7 @@ public class AddDescriptionCommand extends AddCommand implements Undoable {
      * @param description Description to be added.
      */
     public AddDescriptionCommand(Index index, Description description) {
-        requireNonNull(index);
-        requireNonNull(description);
+        requireAllNonNull(index, description);
         this.index = index;
         this.description = description;
     }

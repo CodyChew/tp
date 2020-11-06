@@ -1,228 +1,37 @@
 package seedu.pivot.logic.commands;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import seedu.pivot.commons.util.CollectionUtil;
-import seedu.pivot.model.investigationcase.ArchiveStatus;
-import seedu.pivot.model.investigationcase.Case;
-import seedu.pivot.model.investigationcase.Description;
-import seedu.pivot.model.investigationcase.Document;
-import seedu.pivot.model.investigationcase.Status;
-import seedu.pivot.model.investigationcase.Title;
-import seedu.pivot.model.investigationcase.caseperson.Suspect;
-import seedu.pivot.model.investigationcase.caseperson.Victim;
-import seedu.pivot.model.investigationcase.caseperson.Witness;
-import seedu.pivot.model.tag.Tag;
+import static seedu.pivot.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.pivot.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.pivot.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.pivot.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.pivot.logic.parser.CliSyntax.PREFIX_REFERENCE;
+import static seedu.pivot.logic.parser.CliSyntax.PREFIX_SEX;
+import static seedu.pivot.logic.parser.CliSyntax.PREFIX_STATUS;
+import static seedu.pivot.logic.parser.CliSyntax.PREFIX_TITLE;
 
 /**
- * Edits the details of an existing case in PIVOT.
+ * Represents an Edit command for editing items of different types to PIVOT.
  */
 public abstract class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the specified type "
-            + "to the current case in program is at.\n"
+            + "in the current case.\n"
             + "Existing values will be overwritten by the input values.\n"
             + "Format: '" + COMMAND_WORD + " TYPE PARAMETERS'\n\n"
             + "TYPE 'title'\n"
-            + "Parameters: [t:TITLE]\n"
-            + "Example: " + COMMAND_WORD + " title t:Triple Kovan Murders\n\n"
+            + "Parameters: [" + PREFIX_TITLE + "TITLE]\n"
+            + "Example: " + COMMAND_WORD + " title " + PREFIX_TITLE + "Triple Kovan Murders\n\n"
             + "TYPE 'status'\n"
-            + "Parameters: [s:STATUS]\n"
+            + "Parameters: [" + PREFIX_STATUS + "STATUS]\n"
             + "Example: " + COMMAND_WORD + " status s:closed\n\n"
-            + "TYPE 'doc'\n"
-            + "Parameters: INDEX [n:NAME] [r:REFERENCE]\n"
+            + "TYPE '" + TYPE_DOC + "'\n"
+            + "Parameters: INDEX [" + PREFIX_NAME + "NAME] [" + PREFIX_REFERENCE + "REFERENCE]\n"
             + "Example: " + COMMAND_WORD + " doc 1 n:meeting notes\n\n"
-            + "TYPE 'suspect','victim','witness'\n"
-            + "Parameters: INDEX [n:NAME] [g:GENDER] [p:PHONE] [e:EMAIL] [a:ADDRESS]\n"
-            + "Example: " + COMMAND_WORD + " suspect 1 e:newEmail@mail.com a:new road crescent\n\n";
-
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-
-    /**
-     * Creates and returns a {@code Case} with the details of {@code caseToEdit}
-     * edited with {@code editCaseDescriptor}.
-     */
-    private static Case createEditedCase(Case caseToEdit, EditCaseDescriptor editCaseDescriptor) {
-        assert caseToEdit != null;
-
-        Title updatedTitle = editCaseDescriptor.getTitle().orElse(caseToEdit.getTitle());
-        Description updatedDescription = editCaseDescriptor.getDescription().orElse(caseToEdit.getDescription());
-        Status updatedStatus = editCaseDescriptor.getStatus().orElse(caseToEdit.getStatus());
-        List<Document> updatedDocuments = editCaseDescriptor.getDocuments().orElse(caseToEdit.getDocuments());
-        List<Suspect> updatedSuspects = editCaseDescriptor.getSuspects().orElse(caseToEdit.getSuspects());
-        List<Victim> updatedVictims = editCaseDescriptor.getVictims().orElse(caseToEdit.getVictims());
-        Set<Tag> updatedTags = editCaseDescriptor.getTags().orElse(caseToEdit.getTags());
-        ArchiveStatus updatedArchiveStatus = caseToEdit.getArchiveStatus();
-        List<Witness> updatedWitnesses =
-                editCaseDescriptor.getWitnesses().orElse(caseToEdit.getWitnesses());
-        return new Case(updatedTitle, updatedDescription, updatedStatus, updatedDocuments,
-                updatedSuspects, updatedVictims, updatedWitnesses, updatedTags, updatedArchiveStatus);
-    }
-
-
-    /**
-     * Stores the details to edit the case with. Each non-empty field value will replace the
-     * corresponding field value of the case.
-     */
-    public static class EditCaseDescriptor {
-        private Title title;
-        private Description description;
-        private Status status;
-        private List<Document> documents;
-        private List<Suspect> suspects;
-        private List<Victim> victims;
-        private Set<Tag> tags;
-        private List<Witness> witnesses;
-
-        public EditCaseDescriptor() {}
-
-        /**
-         * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public EditCaseDescriptor(EditCaseDescriptor toCopy) {
-            setTitle(toCopy.title);
-            setDescription(toCopy.description);
-            setStatus(toCopy.status);
-            setDocuments(toCopy.documents);
-            setSuspects(toCopy.suspects);
-            setVictims(toCopy.victims);
-            setWitnesses(toCopy.witnesses);
-            setTags(toCopy.tags);
-
-        }
-
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(title, description,
-                    status, documents, suspects, victims, witnesses, tags);
-        }
-
-        public void setTitle(Title title) {
-            this.title = title;
-        }
-
-        public Optional<Title> getTitle() {
-            return Optional.ofNullable(title);
-        }
-
-        public void setDescription(Description description) {
-            this.description = description;
-        }
-
-        public Optional<Description> getDescription() {
-            return Optional.ofNullable(description);
-        }
-
-        public void setStatus(Status status) {
-            this.status = status;
-        }
-
-        public Optional<Status> getStatus() {
-            return Optional.ofNullable(status);
-        }
-
-        public void setDocuments(List<Document> documents) {
-            this.documents = documents;
-        }
-
-        public Optional<List<Document>> getDocuments() {
-            return (documents != null) ? Optional.of(documents) : Optional.empty();
-        }
-
-        /**
-         * Sets {@code suspects} to this object's {@code suspects}.
-         * A defensive copy of {@code suspects} is used internally.
-         */
-        public void setSuspects(List<Suspect> suspects) {
-            this.suspects = (suspects != null) ? new ArrayList<>(suspects) : null;
-        }
-
-        /**
-         * Returns {@code Optional#empty()} if {@code suspects} is null.
-         */
-        public Optional<List<Suspect>> getSuspects() {
-            return (suspects != null) ? Optional.of(suspects) : Optional.empty();
-        }
-
-        /**
-         * Sets {@code victims} to this object's {@code victims}.
-         * A defensive copy of {@code victims} is used internally.
-         */
-        public void setVictims(List<Victim> victims) {
-            this.victims = (victims != null) ? new ArrayList<>(victims) : null;
-        }
-
-        /**
-         * Returns {@code Optional#empty()} if {@code victims} is null.
-         */
-        public Optional<List<Victim>> getVictims() {
-            return (victims != null) ? Optional.of(victims) : Optional.empty();
-        }
-
-
-        /**
-         * Sets {@code witnesses} to this object's {@code witnesses}.
-         * A defensive copy of {@code witnesses} is used internally.
-         */
-        public void setWitnesses(List<Witness> witnesses) {
-            this.witnesses = (witnesses != null) ? new ArrayList<>(witnesses) : null;
-        }
-
-        /**
-         * Returns {@code Optional#empty()} if {@code witnesses} is null.
-         */
-        public Optional<List<Witness>> getWitnesses() {
-            return (witnesses != null) ? Optional.of(witnesses) : Optional.empty();
-        }
-
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditCaseDescriptor)) {
-                return false;
-            }
-
-            // state check
-            EditCaseDescriptor e = (EditCaseDescriptor) other;
-
-            return getTitle().equals(e.getTitle())
-                    && getStatus().equals(e.getStatus())
-                    && getStatus().equals(e.getStatus())
-                    && getTags().equals(e.getTags());
-        }
-
-
-    }
+            + "TYPE '" + TYPE_SUSPECT + "','" + TYPE_VICTIM + "','" + TYPE_WITNESS + "'\n"
+            + "Parameters: INDEX [" + PREFIX_NAME + "NAME] [" + PREFIX_SEX + "SEX] [" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_EMAIL + "EMAIL] [" + PREFIX_ADDRESS + "ADDRESS]\n"
+            + "Example: " + COMMAND_WORD + " " + TYPE_SUSPECT + " 1"
+            + PREFIX_EMAIL + "newEmail@mail.com " + PREFIX_ADDRESS + "new road crescent\n\n";
 }

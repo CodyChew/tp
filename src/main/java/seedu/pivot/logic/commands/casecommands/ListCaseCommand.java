@@ -13,7 +13,7 @@ import seedu.pivot.logic.state.StateManager;
 import seedu.pivot.model.Model;
 
 /**
- * Lists all cases in PIVOT.
+ * Represents a List command for listing all Unarchived Cases in the Home Section of PIVOT.
  */
 public class ListCaseCommand extends ListCommand {
 

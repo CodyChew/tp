@@ -13,8 +13,7 @@ You can reach us at the email `e0388997@u.nus.edu`
 
 <img src="images/vielheim.png" width="200px">
 
-[[github](https://github.com/vielheim)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/vielheim)][[portfolio](team/vielheim.md)]
 
 * Role: Team Lead
 * Responsibilities: Overall project coordination. Ensures team is on schedule.
@@ -43,7 +42,7 @@ You can reach us at the email `e0388997@u.nus.edu`
 <img src="images/constancensq.png" width="200px">
 
 [[github](http://github.com/constancensq)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/constancensq.md)]
 
 * Role: Documentation
 * Responsibilities: Responsible for the quality of various project documents.
@@ -53,7 +52,7 @@ You can reach us at the email `e0388997@u.nus.edu`
 <img src="images/codychew.png" width="200px">
 
 [[github](http://github.com/CodyChew)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/codychew.md)]
 
 * Role: Code Quality
 * Responsibilities: Looks after code quality,

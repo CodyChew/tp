@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_CASE_PAGE;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_VALID_INDEX;
 import static seedu.pivot.commons.core.UserMessages.MESSAGE_DUPLICATE_SUSPECT;
+import static seedu.pivot.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_NAME;
@@ -25,6 +26,9 @@ import seedu.pivot.model.Model;
 import seedu.pivot.model.investigationcase.Case;
 import seedu.pivot.model.investigationcase.caseperson.Suspect;
 
+/**
+ * Represents an Add command for adding Suspects into Cases in PIVOT.
+ */
 public class AddSuspectCommand extends AddCommand implements Undoable {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + TYPE_SUSPECT
             + ": Adds a suspect to the opened case in PIVOT.\n"
@@ -54,8 +58,7 @@ public class AddSuspectCommand extends AddCommand implements Undoable {
      * @param suspect
      */
     public AddSuspectCommand(Index index, Suspect suspect) {
-        requireNonNull(index);
-        requireNonNull(suspect);
+        requireAllNonNull(index, suspect);
         this.index = index;
         this.suspect = suspect;
     }

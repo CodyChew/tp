@@ -22,6 +22,10 @@ public class Description {
         this.description = description;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     /**
      * Returns true if a given string can be added as a Valid Description.
      * Cannot be blank.

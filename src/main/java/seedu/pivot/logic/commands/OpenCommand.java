@@ -4,9 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.pivot.commons.core.index.Index;
 
-
 /**
- * Abstract class for opening items based on Index.
+ * Represents an Open command for opening items of different types to PIVOT based on its Index.
  */
 public abstract class OpenCommand extends Command {
 
@@ -16,13 +15,12 @@ public abstract class OpenCommand extends Command {
             + ": Opens the item of a specified type, identified by the index number"
             + " used in the displayed list.\n"
             + "Format: '" + COMMAND_WORD + " TYPE'\n\n"
-            + "TYPE 'case'\n"
+            + "TYPE '" + TYPE_CASE + "'\n"
             + "Parameters: INDEX\n"
-            + "Example: " + COMMAND_WORD + " case 1\n\n"
-            + "TYPE 'doc'\n"
+            + "Example: " + COMMAND_WORD + " " + TYPE_CASE + " 1\n\n"
+            + "TYPE '" + TYPE_DOC + "'\n"
             + "Parameters: INDEX\n"
-            + "Example: " + COMMAND_WORD + " doc 1\n\n";
-
+            + "Example: " + COMMAND_WORD + " " + TYPE_DOC + " 1\n\n";
 
     protected final Index targetIndex;
 

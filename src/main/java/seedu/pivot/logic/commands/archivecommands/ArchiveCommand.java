@@ -21,7 +21,7 @@ import seedu.pivot.model.investigationcase.ArchiveStatus;
 import seedu.pivot.model.investigationcase.Case;
 
 /**
- * Archives a case identified using it's displayed index from PIVOT.
+ * Represents an Archive command for archiving Cases in PIVOT based on its Index.
  */
 public class ArchiveCommand extends Command implements Undoable {
     public static final String COMMAND_WORD = "archive";
@@ -74,7 +74,6 @@ public class ArchiveCommand extends Command implements Undoable {
 
         model.deleteCase(caseToArchive);
         model.addCase(updatedCase);
-        //model.setCase(caseToArchive, updatedCase);
 
         model.updateFilteredCaseList(Model.PREDICATE_SHOW_DEFAULT_CASES);
         model.commitPivot(String.format(MESSAGE_ARCHIVE_CASE_SUCCESS, updatedCase), this);

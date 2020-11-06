@@ -3,6 +3,7 @@ package seedu.pivot.logic.commands.suspectcommands;
 import static java.util.Objects.requireNonNull;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_CASE_PAGE;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_VALID_INDEX;
+import static seedu.pivot.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.pivot.model.Model.PREDICATE_SHOW_DEFAULT_CASES;
 
 import java.util.List;
@@ -21,6 +22,9 @@ import seedu.pivot.model.Model;
 import seedu.pivot.model.investigationcase.Case;
 import seedu.pivot.model.investigationcase.caseperson.Suspect;
 
+/**
+ * Represents a Delete command for deleting Suspects from a Case in PIVOT based on its Index.
+ */
 public class DeleteSuspectCommand extends DeleteCommand implements Undoable {
 
     public static final String MESSAGE_DELETE_SUSPECT_SUCCESS = "Deleted Suspect: %1$s";
@@ -37,8 +41,7 @@ public class DeleteSuspectCommand extends DeleteCommand implements Undoable {
      * @param suspectIndex The index of the suspect to be deleted.
      */
     public DeleteSuspectCommand(Index caseIndex, Index suspectIndex) {
-        requireNonNull(caseIndex);
-        requireNonNull(suspectIndex);
+        requireAllNonNull(caseIndex, suspectIndex);
         this.caseIndex = caseIndex;
         this.suspectIndex = suspectIndex;
     }

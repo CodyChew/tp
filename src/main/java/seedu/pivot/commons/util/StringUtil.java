@@ -66,6 +66,7 @@ public class StringUtil {
         }
     }
 
+    // Implementation below adapted from https://stackoverflow.com/a/14848842
     /**
      * Formats the givenString such that the first letter of each word is capitalised,
      * and all other letters are in lower case.

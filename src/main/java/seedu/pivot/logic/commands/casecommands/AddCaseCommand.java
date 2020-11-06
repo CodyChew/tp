@@ -20,7 +20,7 @@ import seedu.pivot.model.Model;
 import seedu.pivot.model.investigationcase.Case;
 
 /**
- * Adds a case to PIVOT.
+ * Represents an Add command for adding Cases into PIVOT.
  */
 public class AddCaseCommand extends AddCommand implements Undoable {
 
@@ -66,6 +66,7 @@ public class AddCaseCommand extends AddCommand implements Undoable {
 
         model.addCase(investigationCase);
         model.commitPivot(String.format(MESSAGE_ADD_CASE_SUCCESS, investigationCase), this);
+
         if (StateManager.atDefaultSection()) {
             model.updateFilteredCaseList(PREDICATE_SHOW_DEFAULT_CASES);
         }

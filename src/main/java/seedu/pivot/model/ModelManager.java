@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.pivot.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -121,7 +123,16 @@ public class ModelManager implements Model {
     public void commitPivot(String commandMessage, Undoable command) {
         requireAllNonNull(commandMessage, command);
         this.versionedPivot.purgeStates();
-        this.versionedPivot.commit(new Pivot(this.pivot), commandMessage, command);
+
+        ObservableList<Case> cases = this.pivot.getCaseList();
+        List<Case> newCases = new ArrayList<>();
+        for (int i = 0; i < cases.size(); i++) {
+            newCases.add(new Case(cases.get(i)));
+        }
+        Pivot newPivot = new Pivot();
+        newPivot.setCases(newCases);
+
+        this.versionedPivot.commit(newPivot, commandMessage, command);
     }
 
     @Override

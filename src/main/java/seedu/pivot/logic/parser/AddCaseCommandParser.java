@@ -4,10 +4,10 @@ import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_MAIN_PAGE;
 import static seedu.pivot.commons.core.UserMessages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.pivot.logic.parser.AddCommandParser.arePrefixesPresent;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.pivot.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,7 +31,7 @@ public class AddCaseCommandParser implements Parser<AddCaseCommand> {
         assert(StateManager.atMainPage()) : ASSERT_MAIN_PAGE;
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_STATUS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_STATUS);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -45,7 +45,7 @@ public class AddCaseCommandParser implements Parser<AddCaseCommand> {
         List<Suspect> suspects = new ArrayList<>();
         List<Victim> victims = new ArrayList<>();
         List<Witness> witnesses = new ArrayList<>();
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<Tag> tagList = new HashSet<>();
 
         Case investigationCase = null;
         if (StateManager.atArchivedSection()) {

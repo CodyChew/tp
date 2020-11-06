@@ -10,7 +10,9 @@ import seedu.pivot.logic.commands.exceptions.CommandException;
 import seedu.pivot.logic.state.StateManager;
 import seedu.pivot.model.Model;
 
-
+/**
+ * Represents a List command for listing Tab items of different types in PIVOT.
+ */
 public class ListTabCommand extends ListCommand {
 
     public static final String LIST_TAB_SUCCESS = "Tab successfully listed: %1$s";

@@ -38,7 +38,7 @@ public class ListCommandParser implements Parser<ListCommand> {
         if (StateManager.atCasePage()) {
             return parseCasePage(matcher);
         }
-        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE_COMBINED));
     }
 
     private static ListCommand parseMainPage(Matcher matcher) throws ParseException {

@@ -19,7 +19,7 @@ import seedu.pivot.model.investigationcase.ArchiveStatus;
 import seedu.pivot.model.investigationcase.Case;
 
 /**
- * Unarchives a case identified using it's displayed index from PIVOT.
+ * Represents an Unarchive command for unarchiving Cases in PIVOT based on its Index.
  */
 public class UnarchiveCommand extends Command implements Undoable {
     public static final String COMMAND_WORD = "unarchive";
@@ -71,7 +71,6 @@ public class UnarchiveCommand extends Command implements Undoable {
 
         model.deleteCase(caseToUnarchive);
         model.addCase(updatedCase);
-        //model.setCase(caseToUnarchive, updatedCase);
 
         model.updateFilteredCaseList(Model.PREDICATE_SHOW_ARCHIVED_CASES);
         model.commitPivot(String.format(MESSAGE_UNARCHIVE_CASE_SUCCESS, updatedCase), this);

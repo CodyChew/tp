@@ -3,6 +3,7 @@ package seedu.pivot.logic.commands.documentcommands;
 import static java.util.Objects.requireNonNull;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_CASE_PAGE;
 import static seedu.pivot.commons.core.DeveloperMessages.ASSERT_VALID_INDEX;
+import static seedu.pivot.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.pivot.model.Model.PREDICATE_SHOW_DEFAULT_CASES;
 
 import java.util.List;
@@ -21,6 +22,9 @@ import seedu.pivot.model.Model;
 import seedu.pivot.model.investigationcase.Case;
 import seedu.pivot.model.investigationcase.Document;
 
+/**
+ * Represents a Delete command for deleting Documents from a Case in PIVOT based on its Index.
+ */
 public class DeleteDocumentCommand extends DeleteCommand implements Undoable {
 
     public static final String MESSAGE_DELETE_DOCUMENT_SUCCESS = "Deleted document: %1$s";
@@ -39,8 +43,7 @@ public class DeleteDocumentCommand extends DeleteCommand implements Undoable {
      * @param documentIndex document index in the document list.
      */
     public DeleteDocumentCommand(Index caseIndex, Index documentIndex) {
-        requireNonNull(caseIndex);
-        requireNonNull(documentIndex);
+        requireAllNonNull(caseIndex, documentIndex);
         this.caseIndex = caseIndex;
         this.documentIndex = documentIndex;
     }

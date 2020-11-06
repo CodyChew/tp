@@ -16,7 +16,7 @@ import seedu.pivot.model.Model;
 import seedu.pivot.model.investigationcase.Case;
 
 /**
- * Opens a specified case in PIVOT.
+ * Represents an Open command for opening Cases in PIVOT based on its Index.
  */
 public class OpenCaseCommand extends OpenCommand {
 
