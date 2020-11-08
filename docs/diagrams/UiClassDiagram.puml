@@ -20,6 +20,8 @@ Class DocumentCard
 Class CasePersonListPanel
 Class CasePersonCard
 Class Index
+Class ArchiveStatus
+Class TabStatus
 }
 
 package Model <<Rectangle>> {
@@ -66,11 +68,18 @@ PersonListPanel --|> UiPart
 PersonCard ---|> UiPart
 
 PersonCard ..> Model
-Index ..> State
 UiManager -right-> Logic
 MainWindow -left-> Logic
 MainWindow --> Index
+MainWindow --> ArchiveStatus
+MainWindow --> TabStatus
 
+Index ..> State
+ArchiveStatus ..> State
+TabStatus ..> State
+
+TabStatus -[hidden]left- ArchiveStatus
+ArchiveStatus -[hidden]left- Index
 Index -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- PersonListPanel
 PersonListPanel -[hidden]left- CasePersonListPanel

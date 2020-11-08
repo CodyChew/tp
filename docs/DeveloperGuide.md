@@ -118,14 +118,18 @@ The case below follows the same execution above. However, the AddCommandParser f
 
 ![Structure of the Model Component](images/ModelClassDiagram.png)
 
-**API** : [`Model.java`](hhttps://github.com/AY2021S1-CS2103-F09-2/tp/blob/master/src/main/java/seedu/pivot/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2021S1-CS2103-F09-2/tp/blob/master/src/main/java/seedu/pivot/model/Model.java)
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user’s preferences.
-* stores the address book data.
+* stores the PIVOT data.
+* stores the history of PIVOT states.
 * exposes an unmodifiable `ObservableList<Case>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+
+The detailed class diagram for the investigation case package is shown below. 
+![Investigation Case Class Diagram](images/InvestigationCaseClassDiagram.png)
 
 ### Storage component
 
@@ -145,12 +149,16 @@ The `Storage` component,
 
 The `StateManager` component,
 * can set the state for an opened `Case` in the app, denoted by its `Index`.
+* can set the state for an opened `Section` in the app, denoted by its `ArchiveStatus`.
+* can set the state for an opened `Tab` in the app, denoted by its `TabState`.
 * can reset the state.
 * can return the state.
 * can request the `UiStateManager` to refresh its state.
 
 The `UiStateManager` component,
 * can set the state for an opened `Case` in the app, denoted by its `Index`.
+* can set the state for an opened `Section` in the app, denoted by its `ArchiveStatus`.
+* can set the state for an opened `Tab` in the app, denoted by its `TabState`.
 * can reset the state.
 * can refresh its state.
 
@@ -182,7 +190,7 @@ As the user invokes `open case [INDEX]`, the arguments are passed from the GUI t
 
 In `PivotParser`, the arguments are processed and passed onto the `OpenCommandParser` to further process the arguments and create a new `OpenCaseCommand`.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** TWhen the user gives an invalid `type`, such as `open suspect 1`, `OpenCommandParser` will raise and error and display the proper command format for the user.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** When the user gives an invalid `type`, such as `open suspect 1`, `OpenCommandParser` will raise and error and display the proper command format for the user.
 </div>
 
 Upon invoking `OpenCaseCommand#execute()`, the class will extract the `Case` that is to be opened, and update the state in `StateManager`.
@@ -274,53 +282,90 @@ default file paths.
 
 ### Undo/Redo feature
 
-The undo/redo feature is facilitated by `VersionedPivot`. It extends `Pivot` with an undo/redo history, 
-stored internally as an `pivotStateList` and `currentStatePointer`. It also stores the corresponding commands 
-for each state in the `pivotStateList` as `commands`. Additionally, it implements the following operations:
+Commands that are able to be undone/redone will implement an interface `Undoable`, with the method `Undoable#getPage())`.
+When a main page command is being undone/redone, PIVOT will return to the main page. The method `Undoable#getPage())`
+informs the caller whether the command is a main page command or a case page command.
+
+The undo/redo feature is facilitated by `VersionedPivot`. It has an undo/redo history of `PivotState` objects,
+stored internally as a `pivotStateList`, and a `currentStatePointer`.
+`VersionedPivot` also keeps track of the command that is to be undone/redone as `commandResult`, and the corresponding
+command message as `commandMessageResult`. Both `commandResult` and `commandMessageResult` will be retrieved from
+the `PivotState` objects stored in `pivotStateList`.
+
+`PivotState` stores the current `ReadOnlyPivot` as a `pivotState`, the corresponding `command` that led to that
+`pivotState`, as well as the `commandMessage` displayed to the user when the command was called.
+`VersionedPivot` will only interact with the Commands via the `Undoable` interface.
+
+Additionally, `VersionedPivot` implements the following operations:
 
 * `VersionedPivot#canUndo()` — Indicates whether the current state can be undone.
 * `VersionedPivot#canRedo()` — Indicates whether the current state can be redone.
-* `VersionedPivot#commit(ReadOnlyPivot pivot, String command)` — Saves the current Pivot state as well as the 
-corresponding command that was called in its history.
+* `VersionedPivot#commit(String commandMessage, Undoable command)` — Saves the current Pivot state, the 
+corresponding command that was called and its command message in its history.
 * `VersionePivot#undo()` — Restores the previous Pivot state from its history.
 * `VersionedPivot#redo()` — Restores a previously undone Pivot state from its history.
 * `VersionedPivot#purgeStates()` — Purges the all the states after the current pointer.
+* `VersionedPivot#updateRedoUndoResult()` — Updates the `command` that is being undone/redone and the corresponding
+`commandMessage`.
+* `VersionedPivot#isMainPageCommand()` — Indicates whether the current command stored in `commandResult` is
+a main page command by using the method `Undoable#getPage())` of `commandResult`.
 
-These operations are exposed in the `Model` interface as `Model#canUndoPivot()`,`Model#canRedoPivot()`, 
-`Model#commitPivot(String command)`, `Model#undoPivot()` and `Model#redoPivot()` respectively.
+These operations are exposed in the `Model` interface as `Model#canUndoPivot()`,`Model#canRedoPivot()`,
+`Model#commitPivot(String commandMessage, Undoable command)`, `Model#undoPivot()`, `Model#redoPivot()`,
+`Model#getCommandMessage()` and `Model#isMainPageCommand()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedPivot` will be initialized with the initial Pivot state,
-and the `currentStatePointer` pointing to that single Pivot state.
+Step 1. The user launches the application for the first time. The `VersionedPivot` will be initialized with the initial `PivotState`,
+and the `currentStatePointer` pointing to that single `PivotState`.
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
-Step 2. The user executes `delete case 5` command to delete the 5th case in Pivot. The `delete` command calls `Model#commitPivot(String command)`, 
-causing the modified state of Pivot and the command message displayed to the user after the `delete case 5` command executes to be saved in 
-`pivotStateList` and `commands` respectively. The `currentStatePointer` is shifted to the newly inserted Pivot state.
+Step 2. The user executes `delete case 5` command to delete the 5th case in Pivot. The `delete case` command calls
+`Model#commitPivot(String commandMessage, Undoable command)`. This will create a new `PivotState` object with
+the modified state of Pivot, the delete case command and its command message. This `PivotState` object will then be saved in
+`pivotStateList`. The `currentStatePointer` is shifted to the newly inserted `PivotState` object.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add case t:Lost Wallet …​` to add a new case. The `add case` command also calls `Model#commitPivot(String command)`, 
-causing another modified Pivot state and its corresponding command message to be saved into `pivotStateList` and `commands`.
+Step 3. The user executes `add case t:Lost Wallet …​` to add a new case. The `add case` command also calls
+`Model#commitPivot(String commandMessage, Undoable command)`. This creates another `PivotState` object with the
+modified Pivot, the add case command and its corresponding command message.
+The `PivotState` object is saved into `pivotStateList`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitPivot(String command)`, 
-so the Pivot state and the corresponding command message will not be saved into `pivotStateList` and `commands`.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call
+`Model#commitPivot(String commandMessage, Undoable command)`, so a new `PivotState` object will not be created and will not be
+be saved into `pivotStateList`.
 
 </div>
 
-Step 4. The user now decides that adding the case was a mistake, and decides to undo that action by executing the `undo` command. 
-The `undo` command will call `Model#undoPivot()`, which will retrieve the corresponding command message at the current state from `commands`
-to be displayed to the user the exact command that is being undone. The `currentStatePointer` will also be shifted once to the left, 
-pointing it to the previous Pivot state, and restores Pivot to that state.
+Step 4. The user then decides to open the newly added case and executes the command `open case 6` (assuming that the
+newly added case is the 6th case in the list). Commands that do not modify Pivot, such as `open case` commands, will
+not call `Model#commitPivot(String commandMessage, Undoable command)`. Thus, the `pivotStateList` remains unchanged.
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
+Step 5. The user now decides that adding the case was a mistake, and decides to undo that action by executing the `undo` command.
+The `undo` command will call `Model#undoPivot()`, which will update `commandResult` to the command being undone, and
+`commandMessageResult` to the corresponding message to display to the user the exact command that is being undone.
+The `currentStatePointer` will also be shifted once to the left, pointing it to the previous `PivotState` object, and
+restores PIVOT to that state.
+
+![UndoRedoState4](images/UndoRedoState4.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the command to be undone is a main
+page command, we revert PIVOT back to the main page. The `undo` command uses `Model#isMainPageCommand()` to check if this
+is the case. If so, it will use `StateManager#resetState()` to return PIVOT to the main page. This is done because the
+list of cases in the main page changes as a result of the undo, which may affect the case page that is open currently.
+For instance, undo might result in the currently open case being removed from PIVOT (like in the above sequence of commands),
+and since the case that is open will no longer exist, it is necessary for PIVOT to return to the main page.
+
+</div>
+
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the
-initial Pivot state, then there are no previous Pivot states to restore. The `undo` command uses `Model#canUndoPivotk()` to check if this
+initial Pivot state, then there are no previous Pivot states to restore. The `undo` command uses `Model#canUndoPivot()` to check if this
 is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 </div>
@@ -335,23 +380,26 @@ at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reac
 </div>
 
 The `redo` command does the opposite — it calls `Model#redoPivot()`, which shifts the `currentStatePointer` once
-to the right, pointing to the previously undone state, and restores Pivot to that state. The corresponding command message
-at this new current state will be retrieved from `commands` to be displayed to the user the exact command that is being redone.
+to the right, pointing to the previously undone state, and restores Pivot to that state. `commandResult` will be updated to
+the command being redone, and `commandMessageResult` will be updated to the corresponding message in order to display to the
+user the exact command that is being redone.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Similar to undo, if the command to be redone
+is a main page command, we revert PIVOT back to the main page. The `redo` command uses `Model#isMainPageCommand()` to check
+if this is the case. If so, it will use `StateManager#resetState()` to return PIVOT to the main page.
+
+</div>
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index
-`pivotStateList.size() - 1`, pointing to the latest Pivot state, then there are no undone Pivot states to restore.
+`pivotStateList.size() - 1`, pointing to the latest `PivotState` object, then there are no undone `PivotState` objects to restore.
 The `redo` command uses `Model#canRedoPivot()` to check if this is the case. If so, it will return an error to the user
 rather than attempting to perform the redo.
 
 </div>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify Pivot, such as `list`, will
-usually not call `Model#commitPivot(String command)`. Thus, the `pivotStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitPivot(String command)`. Since the `currentStatePointer` is not
-pointing at the end of the `pivotStateList`, all Pivot states after the `currentStatePointer` will be purged. Reason: It
+Step 6. The user executes `open case 1`, followed by `edit title t:Robbery`. The edit title command calls
+`Model#commitPivot(String commandMessage, Undoable command)`. Since the `currentStatePointer` is not pointing at the end
+of the `pivotStateList`, all `PivotState` objects after the `currentStatePointer` will be purged. Reason: It
 no longer makes sense to redo the `add case t:Lost Wallet …​` command. This is the behavior that most modern desktop
 applications follow.
 
@@ -374,10 +422,120 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete case`, just save the case being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-### \[Proposed\] Data archiving
+### Archiving cases
 
-_{Explain here how the data archiving feature will be implemented}_
+The `archiveStatus` field of each `Case` determines whether a case is archived or not archived.
+The `archiveStatus` is `ArchiveStatus.ARCHIVED` if archived, and `ArchiveStatus.DEFAULT` if not archived.
 
+#### Implementation: Archive case
+The `archive case` command allows the user to archive an investigation case listed in the `Main Page` of the `Home` section in the GUI.
+The specified case will be removed from the list in the `Home` section and added to the `Archive` section in the GUI.
+
+The `archive case` command mechanism is facilitated by `ArchiveCommand`. It extends the abstract class `Command` and contains
+a `Index` of the `Case` to be archived. It implements the `ArchiveCommand#execute()` operation as required in the abstract parent class.
+
+The Sequence Diagram below shows how the `ArchiveCommand` works.
+
+![ArchiveSequenceDiagram](images/ArchiveSequenceDiagram.png)
+
+The user inputs the command `archive case 1` and the arguments are passed to the `Logic` component.
+
+`PivotParser` processes the provided input and passes the arguments to `ArchiveCommandParser` to be processed.
+If the command is of a valid format, a new `ArchiveCommand` will be created.
+
+<div markdown="span" class="alert alert-info">:information_source: 
+**Note:** When the user provides invalid arguments, such as `archive c 1`, `ArchiveCommandParser` will raise an error and display the proper command format for the user.
+</div>
+
+Upon invoking `ArchiveCommand#execute()`, the class will extract the `Case` to be archived as specified by the `Index` provided.
+A new `Case` with the same details will be created, except the `archiveStatus` field which will be set as `ArchiveStatus.ARCHIVED`.
+The case to be archived will be deleted from the `model` and the new `Case` object will be added to the model. 
+Thus, we have ensured that the `Case` is effectively archived.
+
+The GUI will be updated correspondingly, with the archived case being removed from the `Home` section. The archived case will
+appear in the `Archive` section when users input `list archive`.
+
+#### Implementation: Unarchive case
+The `unarchive case` command allows the user to unarchive an investigation case listed in the `Main Page` of the `Archive` section in the GUI.
+The specified case will be removed from the list in the `Archive` section and added to the `Home` section in the GUI.
+
+The `archive case` command mechanism is facilitated by `UnarchiveCommand`. It extends the abstract class `Command` and contains
+a `Index` of the `Case` to be unarchived. It implements the `UnarchiveCommand#execute()` operation as required in the abstract parent class.
+
+The Sequence Diagram below shows how the `UnarchiveCommand` works.
+
+![UnarchiveSequenceDiagram](images/UnarchiveSequenceDiagram.png)
+
+The `unarchive case` command works in a similar manner to the `archive case` command, 
+except that it sets the newly created `Case` object's `archiveStatus` as `ArchiveStatus.DEFAULT` before
+adding it to the `model`.
+
+#### Implementation: List case and List archive
+The GUI is split into the `Home` section and the `Archive` section. 
+By using the commands `list case` and `list archive`, users can switch between the two sections and interact
+with the cases at that particular section. 
+
+The `list archive` command mechanism is facilitated by `ListArchiveCommand`. It extends the abstract class `ListCommand`. 
+It implements the `ListArchiveCommand#execute()` operation as required in the abstract parent class.
+
+The Sequence Diagram below shows how the `ListArchiveCommand` works.
+
+![ListArchiveSequenceDiagram](images/ListArchiveSequenceDiagram.png)
+
+Upon invoking `ListArchiveCommand#execute()`, the `StateManager` will be notified via the `StateManager#setArchivedSection()`
+method, which will update and store the program's state to be in the `Archive` section. 
+
+The filtered case list in model will also be updated with the predicate to show archived cases. 
+This predicate checks for the `archiveStatus` of cases, taking those that are `ArchiveStatus.ARCHIVED`. 
+With this update, the GUI will also be automatically updated, bringing the program to the `Archive` section
+and listing all archived cases. 
+
+To switch back to the `Home` section, users can input the `list case` command. The `list case` command works in a similar manner
+to the `list archive` command, but now, the filtered case list in `model` will be updated with the predicate to show all unarchived cases,
+and the `StateManager` will be notified that the program's state is the `Home` section now.
+
+#### Design consideration:
+
+##### Aspect: How to consider a case as archived, and list archived cases.
+
+* **Alternative 1 (current implementation):** Store as an enum field in `Case` and make use of appropriate predicates to show the 
+cases
+  * Pros: Easier to implement.
+  * Cons: Do not have two separate lists for archived and unarchived cases, which results in more checks needed for other 
+  functionalities like `find` command.
+
+* **Alternative 2:** Store archived cases and unarchived cases as two different lists in `Model`.
+  * Pros: More clarity in terms of which cases are being shown, hence other functionalities are
+  less likely to be affected from the implementation. This could result in less bugs.
+  * Cons: Difficult to implement this as we need to take into consideration the parsing of JSON files, 
+  and the creation of two lists on startup.
+
+--------------------------------------------------------------------------------------------------------------------
+## **Effort**
+The original AB3 is a one-layered implementation, where users can only interact with one list of items, such as adding and deleting items.
+
+In PIVOT, we adopt a two-layer approach, which increases the complexity of the project. 
+
+In the `Main Page`, users can interact with the list of `Cases` they see, such as adding and deleting a `Case`. 
+Then, they can open a specific `Case`, opening up the `Case Page` which shows the details of the `Case`. They can interact with that particular `Case`, such as adding `Documents`, `Suspects` etc.
+
+This approach required us to consider the design of the program carefully, so as to ensure that we are able to 
+successfully open the correct `Case`, and ensure that the program is at the correct state each time, so that 
+only valid commands can be used. This led to the decision of a `StateManager` class to handle the states of the program.
+
+Various new features are also implemented.
+
+The new `Open Document` feature allows users to easily open `Documents` that are stored in our program. The implementation of this feature
+meant that we had to create a `references` folder on start-up, as well as properly store the file paths of the `Documents`.
+The implementation of the feature had to be carefully designed, as we had to consider the different ways a user might use 
+the program and handle them properly such that the program will not crash (e.g. if the user deletes a document that they added to PIVOT).
+
+
+The `Archive` feature also required a careful consideration of the design alternatives, so as to show a different view in the GUI. 
+We also had to consider how this feature would affect the existing commands.
+
+Much thought and effort has been given to the design of this project, and enhancements have been made to the existing features as well.
+The new features added will also increase the effectiveness of the program.   
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -735,11 +893,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to hold up to 1000 Cases without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4.  The system should not take above 2 seconds to execute any command.
-
-*{More to be added}*
 
 ### Glossary
 

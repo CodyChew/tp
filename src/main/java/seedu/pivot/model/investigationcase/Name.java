@@ -1,9 +1,7 @@
-package seedu.pivot.model.investigationcase.caseperson;
-
-import seedu.pivot.model.investigationcase.Alphanumeric;
+package seedu.pivot.model.investigationcase;
 
 /**
- * Represents a Person's name in the PIVOT.
+ * Represents a CasePerson/Document's name in the PIVOT.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name extends Alphanumeric {

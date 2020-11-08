@@ -8,10 +8,18 @@ skinparam classBackgroundColor STATE_COLOR
 Class StateManager
 Class UIStateManager
 Class Index
+Class ArchiveStatus
+Class TabState
 
+Index -down[hidden]- TabState
+TabState -down[hidden]- ArchiveStatus
 
 StateManager o--> "0..1" Index
+StateManager o--> "0..1" ArchiveStatus
+StateManager o--> "0..1" TabState
 StateManager .right.> UIStateManager
 UIStateManager o--> "0..1" Index
+UIStateManager o--> "0..1" ArchiveStatus
+UIStateManager o--> "0..1" TabState
 
 @enduml
