@@ -23,7 +23,7 @@ You can reach us at the email `e0388997@u.nus.edu`
 <img src="images/esmanda3w.png" width="200px">
 
 [[github](http://github.com/esmanda3w)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/esmanda3w.md)]
 
 * Role: Testing
 * Responsibilities: Ensures the testing of the project is done properly and on time.
@@ -32,7 +32,7 @@ You can reach us at the email `e0388997@u.nus.edu`
 
 <img src="images/jargonx.png" width="200px">
 
-[[github](http://github.com/jargonx)]][[portfolio](team/johndoe.md)]
+[[github](http://github.com/jargonx)][[portfolio](team/jargonx.md)]
 
 * Role: Integration
 * Responsibilities: Reviewing of PRs, making sure code fits

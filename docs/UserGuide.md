@@ -217,7 +217,7 @@ Switches to the `Witness` tab and lists all victims for the current case.
 Format: `list witness`
 
 #### Add description to the current case: `add desc d:DESC`
-Adds the description of the current case if it does not already have a description.
+Adds the description of the current case if it does not already have a description. You cannot edit a description of a case that already has a description using this command. Try [Edit Description](#edit-description-of-the-current-case-edit-desc-ddesc) instead.
 
 Format: `add desc d:DESC`
 - `DESC` cannot be blank.

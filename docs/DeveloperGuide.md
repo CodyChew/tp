@@ -228,16 +228,16 @@ current `case`.
 
 #### Adding a Document
 When a user executes `add doc n:name r:reference.txt`, to add a document with the specified name and file reference
-to the current "opened" case in the state, `addDocumandCommandParser` will be invoked to parse the
+to the current "opened" case in the state, `AddDocumentCommandParser` will be invoked to parse the
 name (prefixed with n:) and reference (prefixed with r:) inputs. The program must be at an "opened" case at this point.
  <br><br>
-`addDocumandCommandParser` will check for a valid name as well as a valid
+`AddDocumentCommandParser` will check for a valid name as well as a valid
 reference that exists in the `./references` directory. This is to prevent a user from creating a document when the
 program is active when they have yet to include the file in the program's directory. The appropriate error message
 should be returned for a better user experience. It will then successfully create a `Document` and
-return `addDocumandCommand`
+return `AddDocumentCommand`
 <br><br>
-`addDocumandCommand` will get the current `case` in the program `state` and adds the new `Document` to this `case`.
+`AddDocumentCommand` will get the current `case` in the program `state` and adds the new `Document` to this `case`.
 It will check for duplicated documents at this point as this is where the program accesses the list of documents in the
 current state. The `model` will then be updated with the updated `case`.
 
@@ -263,7 +263,7 @@ The following activity diagram shows a successful delete document operation at a
 * **Alternative 1 (current choice):** A reference object can be both valid but doesn't exists at the same time.
    - Pros: A document file deletion on the user's local machine will not affect loading the current cases in the Json
    file
-   - Cons: More prone to bugs
+   - Cons: User will only know that the file doesn't exist when he opens it
 
 * **Alternative 2:** A reference object must be both valid and exists to be created.
      - Pros: A document is only created when we know there is a valid and existing `Reference`. Easier for testing.
@@ -587,30 +587,37 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​                                    | I want to …​                     | So that I can…​                                             |
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | investigator                               | create investigation cases with a relevant title                                  | store resources inside                                   |
-| `* * *`  | investigator                               | view the list of investigation cases stored in PIVOT                              |                                                          |
-| `* * *`  | investigator                               | indicate and see the state of different cases (e.g. closed/in-progress/cold case) | edit or see the statuses of my cases                     |
-| `* * *`  | investigator                               | add a description to an investigation case                                        | capture key information about the investigation case     |
-| `* * *`  | investigator                               | delete investigation cases                                                        | delete unwanted cases or cases that are wrongly created  |
-| `* * *`  | investigator                               | open investigation cases easily and view the files that are stored inside         | retrieve the necessary information for those who need it |
-| `* * *`  | investigator                               | add relevant documents to an investigation case                                   |                                                          |
-| `* * *`  | investigator                               | view the list of documents relevant to an investigation case                      |                                                          |
-| `* * *`  | investigator                               | delete irrelevant documents to an investigation case                              | remove outdated documents                                |
-| `* * *`  | investigator                               | view the list of suspects tied to an investigation case                           | refer to all suspects in an investigation case           |
-| `* * *`  | investigator                               | add a list of suspects tied to an investigation case                              |                                                          |
-| `* * *`  | investigator                               | delete suspects tied to an investigation case                                     | delete irrelevant suspects                               |
-| `* * *`  | investigator                               | view the list of witnesses tied to an investigation case                          | refer to all witnesses in an investigation case          |
-| `* * *`  | investigator                               | add a list of witnesses tied to an investigation case                             |                                                          |
-| `* * *`  | investigator                               | delete witnesses tied to an investigation case                                    | delete irrelevant witnesses                              |
-| `* * *`  | investigator                               | view the list of victims tied to an investigation case                            | refer to all victims in an investigation case            |
-| `* * *`  | investigator                               | add a list of victims tied to an investigation case                               |                                                          |
-| `* * *`  | investigator                               | delete victims tied to an investigation case                                      | delete irrelevant victims                                |
-| `* * *`  | investigator                               | close the application when I am done using it                                     | safely exit the application                              |
-
-
-
-
-*{More to be added}*
+| `* * *`  | investigator                               | create investigation cases with a relevant title                                   | store resources inside                                                  |
+| `* * *`  | investigator                               | archive my cases                                                                   | organize and store records that are not relevant to me now              |
+| `* * *`  | investigator                               | restore my cases from the archive                                                  | update past records when there is new information                       |
+| `* * *`  | investigator                               | view the list of investigation cases that I'm currently handling                   | get an overview of the cases that I have                                |
+| `* * *`  | investigator                               | view the list of investigation cases stored in the archive                         | retrieve past cases that I have                                         |
+| `* * *`  | investigator                               | open individual investigation cases                                                | view the relevant details of that case                                  |
+| `* * *`  | investigator                               | find for cases using their case details                                            | quickly retrieve cases based on my search terms                         |
+| `* * *`  | investigator                               | indicate a state for different cases (e.g. closed/in-progress/cold case)           | easily see the status of my cases                                       |
+| `* * *`  | investigator                               | add a description to an investigation case                                         | capture key information about the investigation case                    |
+| `* * *`  | investigator                               | delete investigation cases                                                         | delete unwanted cases or cases that are wrongly created                 |
+| `* * *`  | investigator                               | edit the status of a case                                                          | update the status of a case to have the most updated information        |
+| `* * *`  | investigator                               | add relevant documents to an investigation case                                    | store multiple files related to a case                                  |
+| `* * *`  | investigator                               | view the list of documents in an investigation case                                |                                                                         |
+| `* * *`  | investigator                               | edit the documents in an investigation case                                        | give the document another name or change its file reference             |
+| `* * *`  | investigator                               | delete irrelevant documents to an investigation case                               |  remove outdated documents                                              |
+| `* * *`  | investigator                               | add relevant suspects to an investigation case                                     | link suspects to an investigation case with their personal information  |
+| `* * *`  | investigator                               | view the list of suspects tied to an investigation case                            | refer to all suspects in an investigation case                          |
+| `* * *`  | investigator                               | edit the suspects in an investigation case                                         | add or update information pertaining to that suspect                    |
+| `* * *`  | investigator                               | delete suspects tied to an investigation case                                      | delete irrelevant suspects                                              |
+| `* * *`  | investigator                               | add relevant witnesses to an investigation case                                    | link witnesses to an investigation case with their personal information |
+| `* * *`  | investigator                               | view the list of witnesses tied to an investigation case                           | refer to all witnesses in an investigation case                         |
+| `* * *`  | investigator                               | edit the witness in an investigation case                                          | add or update information pertaining to that witness                    |
+| `* * *`  | investigator                               | delete witnesses tied to an investigation case                                     | delete irrelevant witnesses                                             |
+| `* * *`  | investigator                               | add relevant victims to an investigation case                                      | link victims to an investigation case with their personal information   |
+| `* * *`  | investigator                               | view the list of victims tied to an investigation case                             | refer to all victims in an investigation case                           | 
+| `* * *`  | investigator                               | edit the victims in an investigation case                                          | add or update information pertaining to that victim                     |
+| `* * *`  | investigator                               | delete victims tied to an investigation case                                       | delete irrelevant victims                                               |
+| `* * *`  | new user                                   | view the available functions available in PIVOT                                    |                                                                         |
+| `* * *`  | careless investigator                      | undo my previous command                                                           | quickly remove the changes from my previous command                     |
+| `* * *`  | expert investigator                        | undo and redo multiple commands                                                    | navigate to the state of the program exactly as I need                  |
+| `* * *`  | investigator                               | close the application when I am done using it                                      | safely exit the application                                             |
 
 ### Use cases
 
@@ -619,15 +626,27 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case: Add Investigation Case**
 
 **MSS**
-1.  User requests to create a new active investigation case and specifies a title
-2.  PIVOT adds the new investigation case
+1.  User requests to create a new active investigation case
+2.  User specifies a title.
+3.  PIVOT adds the new investigation case
 
     Use case ends.
 
 **Extensions**
-* 1a. The title is empty.
-    * 1a1. PIVOT shows an error message.
+* 2a. The title is invalid.
+    * 2a1. PIVOT shows an error message.
+    
+	  Use case ends.
+	  
+* 2b. User specifies a status for the case.
+    * 2b1. PIVOT adds the new investigation case
+      
+      Use case ends.
 
+* 2c. User specifies a status for the case.
+    * 2c1. The status is invalid.
+    * 2c2. PIVOT shows an error message.
+    
 	  Use case ends.
 
 **Use case: List Investigation Case**
@@ -635,6 +654,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 1.  User requests to list investigation cases
 2.  PIVOT shows a list of investigation cases
+
+    Use case ends.
+    
+**Use case: List Cases in Archive**
+
+**MSS**
+1.  User requests to list investigation cases in the archive
+2.  PIVOT shows a list of investigation cases in the archive
 
     Use case ends.
 
@@ -656,8 +683,82 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 3a. The given index is invalid.
     * 3a1. PIVOT shows an error message.
 
-      Use case resumes at step 1.
+      Use case resumes at step 3.
 
+**Use case: Archive an investigation case**
+
+**MSS**
+1. User requests to list investigation cases
+2. PIVOT shows a list of investigation cases
+3. User requests to archive a specific case in the list
+4. PIVOT moves the investigation case to the archive
+
+    Use case ends.
+
+**Extensions**
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+    * 3a1. PIVOT shows an error message.
+
+      Use case resumes at step 3.    
+      
+**Use case: Restore a Case from the Archive**
+
+**MSS**
+1. User requests to list investigation cases in the Archive
+2. PIVOT shows a list of investigation cases in the Archive
+3. User requests to restore a specific case in the list
+4. PIVOT moves the investigation case from the archive to the Home section
+
+    Use case ends.
+
+**Extensions**
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+    * 3a1. PIVOT shows an error message.
+
+      Use case resumes at step 3.    
+    
+    
+**Use case: Find an Investigation Case**
+
+**MSS**
+1. User requests to list investigation cases
+2. PIVOT shows a list of investigation cases
+3. User requests to find a specific investigation case in the list
+4. User specified search terms
+5. PIVOT shows a filtered list of the investigation cases which contain any search term
+
+   Use case ends.
+
+**Extensions**
+* 2a. The list is empty.
+
+  Use case ends. 
+
+**Use case: Find an Investigation Case in the Archive**
+
+**MSS**
+1. User requests to list investigation cases in the archive
+2. PIVOT shows a list of investigation cases in the archive
+3. User requests to find a specific investigation case in the list
+4. User specified search terms
+5. PIVOT shows a filtered list of the investigation cases which contain any search term
+
+   Use case ends.
+
+**Extensions**
+* 2a. The list is empty.
+
+  Use case ends. 
+  
+     
 **Use case: Open Investigation Case**
 
 **MSS**
@@ -678,104 +779,265 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
-**Use case: Tag Investigation Case**
-
-**MSS**
-1. User requests to list investigation cases
-2. PIVOT shows a list of investigation cases
-3. User specifies an investigation case
-4. PIVOT navigates to the specified investigation case page
-5. User requests to tag the investigation case with specific tag
-6. PIVOT tags the investigation case with specified tag
-
-   Use case ends.
-
-**Extensions**
-* 2a. The list is empty.
-
-  Use case ends.
-
-* 3a. The given index is invalid.
-    * 3a1. PIVOT shows an error message.
-
-      Use case resumes at step 1.
-
-* 5a. The given tag is invalid.
-    * 5a1. PIVOT shows an error message.
-
-      Use case resumes at step 5.
-
 **Use case: Add Description for an Investigation Case**
 
 **MSS**
-1. User requests to list investigation cases
-2. PIVOT shows a list of investigation cases
-3. User specifies an investigation case
-4. PIVOT navigates to the specified investigation case page
-5. User requests to add a description to the investigation case
-6. PIVOT adds the description to the investigation case
+1. User does (Use case: Open Investigation Case)
+2. User requests to add a description to the investigation case and specifies a description
+3. PIVOT adds the description to the investigation case
 
    Use case ends.
 
 **Extensions**
-* 2a. The list is empty.
+* 2a. The description is empty.
+    * 2a1. PIVOT shows an error message.
+    
+      Use case resumes at step 2.
 
-  Use case ends.
 
-* 3a. The given index is invalid.
-    * 3a1. PIVOT shows an error message.
+* 2b. There is already an existing description.
+    * 2b1. PIVOT shows an error message.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 
-* 5a. The given description is empty.
-    * 5a1. PIVOT shows an error message.
-
-      Use case resumes at step 5.
 
 **Use case: Add Document to Investigation Case**
 
 **MSS**
-1. User requests to add a document to investigation case, specifies a document title and reference
-2. PIVOT adds a new document to the investigation case
+1. User does (Use case: Open Investigation Case)
+2. User requests to add a document to investigation case, specifies a document name and reference
+3. PIVOT adds a new document to the investigation case
 
    Use case ends.
 
 **Extensions**
-* 1a. The title is empty.
-    * 1a1. PIVOT shows an error message.
+* 2a. The name is invalid.
+    * 2a1. PIVOT shows an error message.
+    
+      Use case resumes at step 2.
 
-      Use case resumes at step 1.
 
-* 1b. The reference is empty.
-    * 1b1. PIVOT shows an error message.
+* 2b. The reference is invalid.
+    * 2b1. PIVOT shows an error message.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 
-* 1c. The reference is invalid.
-    * 1c1. PIVOT shows an error message.
+**Use case: Add Person[Suspect/Witness/Victim] in Investigation Case**
 
-      Use case resumes at step 1.
+**MSS**
+1. User does (Use case: Open Investigation Case)
+2. User requests to add a person to a specified category (suspect/witness/victim).
+3. User specifies all the name, sex and phone number of that person.
+4. PIVOT adds the person to a specified category (suspect/witness/victim).
 
+   Use case ends.
+
+**Extensions**
+
+* 2a. The given category of person to add is invalid.
+    * 2a1. PIVOT shows an error message.
+
+        Use case resumes at step 1.
+        
+* 3a. The name is invalid.
+    * 3a1. PIVOT shows an error message.
+    
+      Use case resumes at step 3.
+
+* 3b. The sex is invalid.
+    * 3b1. PIVOT shows an error message.
+
+      Use case resumes at step 3.
+   
+* 3c. The phone number is invalid.
+    * 3c1. PIVOT shows an error message.
+
+      Use case resumes at step 3.
+      
+* 3d. User specifies other optional fields (email address and address).
+    * 3d1. PIVOT recognizes that fields are invalid.
+    * 3d1. PIVOT shows an error message.
+
+      Use case resumes at step 3.
+      
+* 3e. User specifies other optional fields (email address and address).
+    * 3e1. PIVOT recognizes that fields are valid.
+    * 3e1. PIVOT adds the person to a specified category (suspect/witness/victim).
+
+      Use case ends.
+      
+**Use case: List Person[Suspect/Witness/Victim] in Investigation Case**
+
+**MSS**
+1. User does (Use case: Open Investigation Case)
+2. User requests to list Persons in the case.
+3. PIVOT shows a list of Persons in the case.
+
+   Use case ends.
+   
 **Use case: List Document related to Investigation Case**
 
 **MSS**
-1. User requests to list documents related to the case
-2. PIVOT shows a list of documents related to the case
+1. User does (Use case: Open Investigation Case)
+2. User requests to list documents in the case
+3. PIVOT shows a list of documents in the case
 
    Use case ends.
 
-**Use case: Delete Document from Investigation Case**
+**Use case: Edit Investigation Case Title**
 
 **MSS**
-1. User requests to list investigation cases
-2. PIVOT shows a list of investigation cases
-3. User requests to delete a specific investigation case in the list
-4. PIVOT deletes the investigation case
+1. User does (Use case: Open Investigation Case)
+2. User requests to edit the title of the investigation case
+3. User specifies a title
+4. PIVOT updates the title of the investigation case
+
+    Use case ends.
+
+**Extensions**
+* 3a. The title is invalid.
+    * 3a1. PIVOT shows an error message.
+    
+	  Use case ends.
+	  
+	 
+**Use case: Edit Investigation Case Status**
+
+**MSS**
+1. User does (Use case: Open Investigation Case)
+2. User requests to edit the status of the investigation case
+3. User specifies a status
+4. PIVOT updates the status of the investigation case
+
+    Use case ends.
+
+**Extensions**
+* 3a. The status is invalid.
+    * 3a1. PIVOT shows an error message.
+    
+	  Use case ends.
+	  
+	  
+**Use case: Edit Description for an Investigation Case**
+
+**MSS**
+1. User does (Use case: Open Investigation Case)
+2. User requests to edit the description of the investigation case
+3. User specifies a description
+4. PIVOT updates the description of the investigation case
 
    Use case ends.
 
 **Extensions**
-* 2a. The list is empty.
+* 3a. The description is empty.
+    * 3a1. PIVOT shows an error message.
+    
+      Use case resumes at step 3.
+
+      
+**Use case: Edit Document to Investigation Case**
+
+**MSS**
+1. User does (Use case: List Document related to Investigation Case)
+2. User requests to edit a document to investigation case
+3. User specifies a document's index in the list
+4. User specifies fields(name and reference) that they want to edit
+5. PIVOT updates the document with the specified fields
+
+   Use case ends.
+
+**Extensions**
+* 1a. The list is empty.
+
+  Use case ends.
+  
+* 3a. The index is invalid.
+    * 3a1. PIVOT shows an error message.
+    
+      Use case resumes at step 3.
+      
+* 4a. The name given is invalid.
+    * 4a1. PIVOT shows an error message.
+    
+      Use case resumes at step 4.
+
+
+* 4b. The reference given is invalid.
+    * 4b1. PIVOT shows an error message.
+
+      Use case resumes at step 4.
+      
+* 4c. User did not specify any fields to change.
+    * 4c1. PIVOT shows an error message.
+
+      Use case resumes at step 4.
+      
+
+**Use case: Edit Person[Suspect/Witness/Victim] in Investigation Case**
+
+**MSS**
+1. User does (Use case: List Person[Suspect/Witness/Victim] in Investigation Case)
+2. User requests to edit a person of a specified category (suspect/witness/victim).
+3. User specifies a person's index in the list
+4. User specifies fields(name/sex/phone/email/address) that they want to edit
+5. PIVOT updates the person of a specified category (suspect/witness/victim) with the specified fields.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The list is empty.
+
+  Use case ends.
+  
+* 2a. The given category of person to add is invalid.
+    * 2a1. PIVOT shows an error message.
+
+        Use case resumes at step 2.
+        
+* 3a. The index is invalid.
+    * 3a1. PIVOT shows an error message.
+    
+      Use case resumes at step 3.
+     
+    
+* 4a. The fields specified are invalid.
+    * 4a1. PIVOT recognizes that fields are invalid.
+    * 4a1. PIVOT shows an error message.
+
+      Use case resumes at step 4.
+      
+* 4b. User did not specify any fields to change.
+    * 4b1. PIVOT shows an error message.
+
+      Use case ends.
+      
+**Use case: Delete Description for an Investigation Case**
+
+**MSS**
+1. User does (Use case: Open Investigation Case)
+2. User requests to delete the description of the investigation case
+3. PIVOT deletes the description of the investigation case
+
+   Use case ends.
+
+**Extensions**
+* 2a. The case has no description to delete.
+    * 2a1. PIVOT shows an error message.
+    
+      Use case resumes at step 2.
+      
+**Use case: Delete Document from Investigation Case**
+
+**MSS**
+1. User does (Use case: List Document related to Investigation Case)
+2. User requests to delete a document to investigation case
+3. User specifies a document's index in the list
+4. PIVOT deletes the document from the list
+
+   Use case ends.
+
+**Extensions**
+* 1a. The list is empty.
 
   Use case ends.
 
@@ -784,100 +1046,69 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
+**Use case: Delete Person[Suspect/Witness/Victim] in Investigation Case**
+
+**MSS**
+1. User does (Use case: List Person[Suspect/Witness/Victim] in Investigation Case)
+2. User requests to delete a person of a specified category (suspect/witness/victim).
+3. User specifies a person's index in the list
+4. PIVOT deletes the person from the list.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The list is empty.
+
+    Use case ends.
+    
+* 2a. The given category of person to add is invalid.
+    * 2a1. PIVOT shows an error message.
+
+        Use case resumes at step 2.
+        
+* 3a. The given index is invalid.
+    * 3a1. PIVOT shows an error message.
+
+        Use case resumes at step 3.
+        
 **Use case: Open Document**
 
 **MSS**
-1. User requests to list documents
-2. PIVOT shows a list of documents
-3. User requests to open a specific document in the list
+1. User does (Use case: List Document related to Investigation Case)
+2. User requests to open a specific document in the list
+3. User specifies a document's index in the list to open
 4. PIVOT opens the specified document
 
    Use case ends.
 
 **Extensions**
-* 2a. The list is empty.
+* 1a. The list is empty.
 
     Use case ends.
 
 * 3a. The given index is invalid.
     * 3a1. PIVOT shows an error message.
 
-        Use case resumes at step 1.
+        Use case resumes at step 3.
 
-* 4a. The specified document does not exist in the saved reference.
-    * 4a1. PIVOT shows an error message.
+* 3b. The specified document does not exist in the saved reference.
+    * 3b1. PIVOT shows an error message.
 
-        Use case resumes at step 1.
+        Use case resumes at step 3.
 
-**Use case: Add Person[Suspect/Witness/Victim] in Investigation Case**
-
-**MSS**
-1. User requests to list investigation cases
-2. PIVOT shows a list of investigation cases
-3. User requests to open a specific investigation case in the list
-4. PIVOT opens the specified investigation case
-5. User requests to add a person to a specified category (suspect/witness/victim).
-6. PIVOT adds the person to a specified category (suspect/witness/victim).
-
-   Use case ends.
-
-**Extensions**
-* 2a. The list is empty.
-
-    Use case ends.
-
-* 3a. The given index is invalid.
-    * 3a1. PIVOT shows an error message.
-
-        Use case resumes at step 1.
-
-* 5a. The given category of person to add is invalid.
-    * 5a1. PIVOT shows an error message.
-
-        Use case resumes at step 1.
-
-**Use case: List Person[Suspect/Witness/Victim] in Investigation Case**
-
-**MSS**
-1. User requests to list Persons related to the case.
-2. PIVOT shows a list of Persons related to the case.
-
-   Use case ends.
-
-**Use case: Delete Person[Suspect/Witness/Victim] in Investigation Case**
-
-**MSS**
-1. User requests to list all Persons
-2. PIVOT shows a list of all Persons
-3. User requests to delete a specific Person from the list
-4. PIVOT deletes the Person
-
-   Use case ends.
-
-**Extensions**
-* 2a. The list is empty.
-
-    Use case ends.
-
-* 3a. The given index is invalid.
-    * 3a1. PIVOT shows an error message.
-
-        Use case resumes at step 1.
 
 **Use case: Return to the Main Page**
 
 **MSS**
-1. User requests to list investigation cases
-2. PIVOT shows a list of investigation cases
-3. User requests to open a specific investigation case in the list
-4. PIVOT navigates to the specified investigation case
-5. User requests to navigate to the main page
-6. PIVOT navigates to the main page
+1. User does (Use case: Open Investigation Case)
+2. User requests to navigate to the main page
+3. PIVOT navigates to the main page
 
    Use case ends.
 
 **Extensions**
-* 1a. User requests to navigate to the main page.
+* *a. At any time, user can request to navigate to the main page.
+    * *a1. PIVOT brings the user back to the main page.
 
     Use case ends.
 
@@ -888,6 +1119,57 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. PIVOT terminates.
 
     Use case ends.
+
+        
+**Use case: Undo command**
+
+**MSS**
+1. User starts up PIVOT
+2. User does a command
+3. User requests to undo the previous command
+4. PIVOT reverts the effects of the previous command that can be undone
+
+   Use case ends.
+
+**Extensions**
+* 1a. User requests to undo the previous command.
+    * 1a1. There is no command to undo
+    
+    Use case ends.
+    
+* 2a. User does a command that can be un-done.
+    * 2a1. User does (Use case: Delete Document from Investigation Case)
+    * 2a2. User requests to undo the previous command
+    * 2a3. PIVOT restores the Document which has been deleted by the previous command 
+    
+    Use case ends.
+
+* 2b. User does a command that cannot be undone.
+    * 2b1. User does (Use case: List Investigation Case)
+    * 2b2. User requests to undo the previous command
+    * 2b3. PIVOT is already at its initial state
+    
+    Use case ends.
+    
+
+**Use case: Redo command**
+
+**MSS**
+1. User does (Use case: Undo command)
+2. User requests to redo a command
+3. PIVOT restores the effects of the previous command that was undone, if any
+
+   Use case ends.
+
+**Extensions**
+    
+* 1a. Undo command was successful.
+    
+    Use case resumes at step 2.
+
+* 1b. There was nothing to undo.
+
+    Use case resumes at step 2.
 
 
 ### Non-Functional Requirements

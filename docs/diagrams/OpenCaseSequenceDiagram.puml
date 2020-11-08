@@ -4,7 +4,7 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":PivotParser" as PivotParser LOGIC_COLOR
-participant ":OpenCaseCommandParser" as OpenCaseCommandParser LOGIC_COLOR
+participant ":OpenCommandParser" as OpenCommandParser LOGIC_COLOR
 participant "command:OpenCaseCommand" as OpenCaseCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
@@ -19,28 +19,28 @@ activate LogicManager
 LogicManager -> PivotParser : parseCommand("open case 1")
 activate PivotParser
 
-create OpenCaseCommandParser
-PivotParser -> OpenCaseCommandParser
-activate OpenCaseCommandParser
+create OpenCommandParser
+PivotParser -> OpenCommandParser
+activate OpenCommandParser
 
-OpenCaseCommandParser --> PivotParser
-deactivate OpenCaseCommandParser
+OpenCommandParser --> PivotParser
+deactivate OpenCommandParser
 
-PivotParser -> OpenCaseCommandParser : parse("case 1")
-activate OpenCaseCommandParser
+PivotParser -> OpenCommandParser : parse("case 1")
+activate OpenCommandParser
 
 create OpenCaseCommand
-OpenCaseCommandParser -> OpenCaseCommand : Index
+OpenCommandParser -> OpenCaseCommand : OpenCaseCommand(index)
 activate OpenCaseCommand
 
-OpenCaseCommand --> OpenCaseCommandParser : command
+OpenCaseCommand --> OpenCommandParser : command
 deactivate OpenCaseCommand
 
-OpenCaseCommandParser --> PivotParser : command
-deactivate OpenCaseCommandParser
+OpenCommandParser --> PivotParser : command
+deactivate OpenCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-OpenCaseCommandParser -[hidden]-> PivotParser
-destroy OpenCaseCommandParser
+OpenCommandParser -[hidden]-> PivotParser
+destroy OpenCommandParser
 
 PivotParser --> LogicManager : command
 deactivate PivotParser

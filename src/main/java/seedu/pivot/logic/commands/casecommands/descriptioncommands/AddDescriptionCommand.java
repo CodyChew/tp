@@ -35,7 +35,8 @@ public class AddDescriptionCommand extends AddCommand implements Undoable {
             + PREFIX_DESC + "7 people arrested for rioting";
 
     public static final String MESSAGE_ADD_DESCRIPTION_SUCCESS = "New description added: %1$s";
-    public static final String MESSAGE_DESCRIPTION_ALREADY_EXISTS = "This case already has a description!";
+    public static final String MESSAGE_DESCRIPTION_ALREADY_EXISTS =
+            "This case already has a description! Please edit the description instead.";
 
     private static final Page pageType = Page.CASE;
     private static final Logger logger = LogsCenter.getLogger(AddDescriptionCommand.class);

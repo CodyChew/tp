@@ -5,7 +5,6 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":PivotParser" as PivotParser LOGIC_COLOR
 participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
 participant ":AddDocumentCommandParser" as AddDocumentCommandParser LOGIC_COLOR
 participant ":AddDocumentCommand" as AddDocumentCommand LOGIC_COLOR
 end box
@@ -15,7 +14,7 @@ participant ":Model" as Model MODEL_COLOR
 participant "updatedCase:Case" as updatedCase LOGIC_COLOR
 end box
 
-[-> LogicManager : execute("add doc n:name r:reference.txt")
+[-> LogicManager : execute\n("add doc n:name r:reference.txt")
 activate LogicManager
 
 LogicManager -> PivotParser : parseCommand\n("add doc n:name r:reference.txt")
@@ -32,7 +31,7 @@ activate AddDocumentCommandParser
 AddDocumentCommandParser --> AddCommandParser
 deactivate AddDocumentCommandParser
 
-AddCommandParser -> AddDocumentCommandParser : parse("doc n:name r:reference.txt")
+AddCommandParser -> AddDocumentCommandParser : parse\n("n:name r:reference.txt")
 activate AddDocumentCommandParser
 
 create AddDocumentCommand
@@ -87,12 +86,6 @@ activate Model
 Model --> AddDocumentCommand
 deactivate Model
 
-create CommandResult
-AddDocumentCommand -> CommandResult
-activate CommandResult
-
-CommandResult --> AddDocumentCommand
-deactivate CommandResult
 
 AddDocumentCommand --> LogicManager : result
 deactivate AddDocumentCommand

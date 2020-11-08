@@ -19,7 +19,10 @@ public abstract class DeleteCommand extends Command {
             + ": Deletes the specified type of item identified by the index number"
             + " used in the displayed list in current case.\n"
             + "Format: '" + COMMAND_WORD + " TYPE PARAMETERS'\n\n"
-            + "TYPE '" + TYPE_SUSPECT + "','" + TYPE_VICTIM + "','" + TYPE_WITNESS + "','" + TYPE_DOC + "'\n"
+            + "TYPE '" + TYPE_DESC + "'\n"
+            + "Parameters: DESC\n"
+            + "Example: " + COMMAND_WORD + " " + TYPE_DESC + "\n\n"
+            + "TYPE '" + TYPE_DOC + "','" + TYPE_SUSPECT + "','" + TYPE_VICTIM + "','" + TYPE_WITNESS + "'\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " " + TYPE_SUSPECT + " 1";
 

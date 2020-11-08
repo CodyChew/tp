@@ -1,6 +1,7 @@
 package seedu.pivot.logic.commands;
 
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.pivot.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.pivot.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -23,6 +24,9 @@ public abstract class EditCommand extends Command {
             + "TYPE 'title'\n"
             + "Parameters: [" + PREFIX_TITLE + "TITLE]\n"
             + "Example: " + COMMAND_WORD + " title " + PREFIX_TITLE + "Triple Kovan Murders\n\n"
+            + "TYPE '" + TYPE_DESC + "'\n"
+            + "Parameters: " + PREFIX_DESC + "DESC \n"
+            + "Example: " + COMMAND_WORD + " " + TYPE_DESC + " " + PREFIX_DESC + "8 caught for rioting\n\n"
             + "TYPE 'status'\n"
             + "Parameters: [" + PREFIX_STATUS + "STATUS]\n"
             + "Example: " + COMMAND_WORD + " status s:closed\n\n"
