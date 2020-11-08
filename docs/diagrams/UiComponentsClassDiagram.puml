@@ -1,0 +1,62 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UIComponents <<Rectangle>>{
+Class MainWindow
+Class ResultDisplay
+Class PersonListPanel
+Class PersonCard
+Class StatusBarFooter
+Class CommandBox
+Class DocumentListPanel
+Class DocumentCard
+Class CasePersonListPanel
+Class CasePersonCard
+}
+
+package Model <<Rectangle>> {
+Class HiddenModel #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> MainWindow
+
+package UIComponents <<Rectangle>> {
+
+MainWindow *-down-> CommandBox
+MainWindow *-down-> ResultDisplay
+MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> DocumentListPanel
+MainWindow *-down-> CasePersonListPanel
+MainWindow *-down-> PersonListPanel
+
+
+DocumentListPanel -down--> DocumentCard
+CasePersonListPanel -down--> CasePersonCard
+PersonListPanel -down--> PersonCard
+
+
+ResultDisplay --|> UiPart
+CommandBox --|> UiPart
+StatusBarFooter --|> UiPart
+DocumentListPanel --|> UiPart
+DocumentCard ---|> UiPart
+CasePersonListPanel --|> UiPart
+CasePersonCard ---|> UiPart
+PersonListPanel --|> UiPart
+PersonCard ---|> UiPart
+
+PersonCard ..> Model
+
+PersonListPanel -[hidden]left- CasePersonListPanel
+CasePersonListPanel -[hidden]left- DocumentListPanel
+DocumentListPanel -[hidden]left- CommandBox
+CommandBox -[hidden]left- ResultDisplay
+ResultDisplay -[hidden]left- StatusBarFooter
+
+
+MainWindow -[hidden]-|> UiPart
+@enduml

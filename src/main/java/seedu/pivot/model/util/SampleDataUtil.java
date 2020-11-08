@@ -42,7 +42,7 @@ public class SampleDataUtil {
             List.of(new Victim(new Name("Mary"), Sex.F, new Phone("91234567"),
                             new Email("abc@gmail.com"), new Address("Blk 123 Beach Road"))));
     private static final List<Document> sampleDocuments =
-            List.of(new Document(new Name("name"), new Reference("test1.txt")));
+            List.of(new Document(new Name("Name"), new Reference("test1.txt")));
     private static final Description sampleDescription = new Description("7 people arrested for rioting");
 
     public static Case[] getSampleCases() {

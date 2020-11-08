@@ -11,6 +11,7 @@ If you can type fast, PIVOT can manage your investigation cases faster than trad
 
 --------------------------------------------------------------------------------------------------------------------
 
+<div style="page-break-after: always;"></div>
 ## Set Up
 
 1. Ensure you have Java `11` or above installed in your Computer.
@@ -22,7 +23,8 @@ If you can type fast, PIVOT can manage your investigation cases faster than trad
 1. Run the command `java -jar pivot.jar` using the Command Line at the _home folder_ to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    
     ![Home Page at Main](images/home_main.png)
-   
+
+<div style="page-break-after: always;"></div>
 ## Navigating PIVOT
 
 1. When you first start the app, you will be at the `Home` section's `Main Page` (You can navigate between the `Home` or `Archive` sections). In the image below, the `navigation bar` is highlighted. It shows where you are in the app at any point in time. The `Command Line` allows you to enter the commands, and the feedback is displayed in the `Result Display`.
@@ -49,6 +51,7 @@ If you can type fast, PIVOT can manage your investigation cases faster than trad
 
    ![Adjustable Divider Horizontal](images/adjustable_panel_horizontal.png)
     
+<div style="page-break-after: always;"></div>
 ## Quick Start
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
@@ -71,6 +74,7 @@ If you can type fast, PIVOT can manage your investigation cases faster than trad
 1. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Features
 
@@ -97,6 +101,8 @@ Users cannot add a `Suspect`/`Witness`/`Victim` to a `Case` if there is an exist
 There can be a `Suspect` with the same `Name`, `Sex` and `Phone` as an existing `Victim`/`Witness` in that `Case` and vice versa.
 The same `Suspect`/`Witness`/`Victim` can also appear in different cases.
 </div>
+
+<div style="page-break-after: always;"></div>
 
 ### Main page
 The commands listed below can only be used in the `Main Page` of the app.
@@ -129,6 +135,8 @@ Example:
 * `add case t:Kovan double murders` creates a new case with the title “Kovan double murders”, the status initialized as an active case.
 * `add case t:Kovan double murders s:Closed` creates a new case with the title “Kovan double murders”, the status initialized as a closed case.
 
+<div style="page-break-after: always;"></div>
+
 #### Delete case: `delete case CASE_NO`
 Deletes the case specified with `CASE_NO` from the currently shown list.
 
@@ -159,6 +167,7 @@ Format:  `archive case CASE_NO`
 Example: 
 * `list case` followed by `archive case 1` archives the 1st case in the currently shown list.
 
+<div style="page-break-after: always;"></div>
 #### Unarchive case in the Archive section: `unarchive case CASE_NO`
 Unarchives the case specified with `CASE_NO` from the currently shown list in the `Archive` section of PIVOT.
 
@@ -188,6 +197,8 @@ the list of cases will be updated to show the full list of cases in `Home` \ `Ar
 
 Format:  `find KEYWORD [MORE_KEYWORDS]`
 
+<div style="page-break-after: always;"></div>
+
 Example:
 * `find Ang` could return cases titled `ang` and `Ang Mo Kio Car Theft`, and cases with a suspect named `Ang`
 * `find dhoby bishan` could return cases `Dhoby Ghaut Murder Case` and `Bishan Shopping Theft`, and cases containing `dhoby` or `bishan` in their description
@@ -216,6 +227,8 @@ Switches to the `Witness` tab and lists all victims for the current case.
 
 Format: `list witness`
 
+<div style="page-break-after: always;"></div>
+
 #### Add description to the current case: `add desc d:DESC`
 Adds the description of the current case if it does not already have a description. You cannot edit a description of a case that already has a description using this command. Try [Edit Description](#edit-description-of-the-current-case-edit-desc-ddesc) instead.
 
@@ -237,6 +250,7 @@ Format: `add doc n:NAME r:REFERENCE`
 Example: 
 - `add doc n:Case Details r:case_details.pdf` adds a new document with title “Case Details” with the file name case_details.pdf to the investigation case.
 
+<div style="page-break-after: always;"></div>
 
 <div markdown="block" class="alert alert-info">
 
@@ -302,6 +316,7 @@ You must add a description first.[(See Add Description)](#add-description-to-the
 Format: `edit desc d:DESC`
 - `DESC` cannot be blank.
 
+<div style="page-break-after: always;"></div>
 Example: 
 - `edit desc d:Kovan double murders` edits the description of the current case to “Kovan double murders”.
 
@@ -333,8 +348,8 @@ Example:
 - `edit doc 2 n:Fire outbreak details r:newFireDoc.pdf` updates the second document of the current opened case with 
 name `Fire outbreak details` and reference `newFireDoc.pdf`.
 <br>
+<div style="page-break-after: always;"></div>
 This document `newFireDoc.pdf` must be manually added to the `references` folder provided and must be present before the document can be successfully updated.
-
 
 <div markdown="block" class="alert alert-info">
 
@@ -367,6 +382,7 @@ Example:
 - `edit suspect 1 e:newEmail@mail.com a:New Road Crescent` edits the first suspect in the list with the email 
 `newEmail@mail.com` and the address `New Road Crescent`.
 
+<div style="page-break-after: always;"></div>
 #### Edit an existing victim in the current case: `edit victim VICTIM_NO [n:NAME] [sex:SEX] [p:PHONE] [e:EMAIL] [a:ADDRESS]`
 
 Edits the fields of the victim specified with the index in the case that is currently open.
@@ -399,6 +415,7 @@ You must add a description first.[(See Add Description.)](#add-description-to-th
 
 Format: `delete desc`
 
+<div style="page-break-after: always;"></div>
 #### Delete document: `delete doc DOC_NO `
 Deletes the document specified with `DOC_NO` from the list of documents.
 
@@ -436,6 +453,7 @@ Format: `delete witness WITNESS_NO`
 
 Example: `delete witness 1`
 
+<div style="page-break-after: always;"></div>
 #### Open document in the current case: `open doc DOC_NO`
 
 Opens the specified document at index `DOC_NO` in the list. 
@@ -468,6 +486,7 @@ command, redo will not be able to be called.
 
 Format: `redo`
 
+<div style="page-break-after: always;"></div>
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Notes about undo/redo:**<br>
@@ -500,7 +519,7 @@ User data automatically loads when user opens the app.
 User data automatically saves when there is a change in data.
 
 --------------------------------------------------------------------------------------------------------------------
-
+<div style="page-break-after: always;"></div>
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
@@ -523,32 +542,47 @@ User data automatically saves when there is a change in data.
 |**unarchive**      | `unarchive case CASE_NO`              |
 |**find**           | `find KEYWORD [MORE KEYWORDS]`        |
 
+<div style="page-break-after: always;"></div>
 #### Investigation Page Commands
 
-| Command               | Format                                                                            |
+| List Commands         | Format                                                                            |
 | --------------------- | ----------------------------------------------------------------------------------|
 |**list document**      | `list doc`                                                                        |
 |**list suspect**       | `list suspect`                                                                    |
 |**list victim**        | `list victim`                                                                     |
 |**list witness**       | `list witness`                                                                    |
+
+| Add Commands          | Format                                                                            |
+| --------------------- | ----------------------------------------------------------------------------------|
 |**add description**    | `add desc d:DESC`                                                                 |
 |**add document**       | `add doc n:TITLE r:FILE_NAME`                                                     |
 |**add suspect**        | `add suspect n:NAME sex:SEX p:PHONE [e:EMAIL] [a:ADDRESS]`                        |
 |**add victim**         | `add victim n:NAME sex:SEX p:PHONE [e:EMAIL] [a:ADDRESS]`                         |
 |**add witness**        | `add witness n:NAME sex:SEX p:PHONE [e:EMAIL] [a:ADDRESS]`                        |
-|**open doc**           | `open doc DOC_NO`                                                                 |
+
+<div style="page-break-after: always;"></div>
+
+| Edit Commands         | Format                                                                            |
+| --------------------- | ----------------------------------------------------------------------------------|
 |**edit title**         | `edit title t:TITLE`                                                              |
 |**edit description**   | `edit desc d:DESC`                                                                |
 |**edit status**        | `edit status s:STATUS`                                                            |
-|**edit document**      | `edit doc DOC_NO [n:NAME] [r:REFERENCE]`                                         |
+|**edit document**      | `edit doc DOC_NO [n:NAME] [r:REFERENCE]`                                          |
 |**edit suspect**       | `edit suspect SUSPECT_NO [n:NAME] [sex:SEX] [p:PHONE] [e:EMAIL] [a:ADDRESS]`      |
 |**edit victim**        | `edit victim VICTIM_NO [n:NAME] [sex:SEX] [p:PHONE] [e:EMAIL] [a:ADDRESS]`        |
 |**edit witness**       | `edit witness WITNESS_NO [n:NAME] [sex:SEX] [p:PHONE] [e:EMAIL] [a:ADDRESS]`      |
+
+| Delete Commands       | Format                                                                            |
+| --------------------- | ----------------------------------------------------------------------------------|
 |**delete description** | `delete desc`                                                                     |
 |**delete doc**         | `delete doc DOC_NO`                                                               |
 |**delete suspect**     | `delete suspect SUSPECT_NO`                                                       |
 |**delete victim**      | `delete victim VICTIM_NO`                                                         |
 |**delete witness**     | `delete witness WITNESS_NO`                                                       |
+
+| Other Commands        | Format                                                                            |
+| --------------------- | ----------------------------------------------------------------------------------|
+|**open doc**           | `open doc DOC_NO`                                                                 |
 |**return**             | `return`                                                                          |
 
 #### Both Pages

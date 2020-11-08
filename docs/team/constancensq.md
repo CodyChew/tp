@@ -26,24 +26,21 @@ Given below are my contributions to the project.
   * Justification: This features improves the product as it provides more depth to the product, allowing users to specify more details related to the case. 
   This improves the effectiveness of the product in helping users to keep track of the investigations and the related victims at a glance.
   
-* **New Feature**: Developed CasePerson (Suspect/Witness/Victim) to contain more fields (Pull Request [\#153](https://github.com/AY2021S1-CS2103-F09-2/tp/pull/153), [\#235](https://github.com/AY2021S1-CS2103-F09-2/tp/pull/235))
+* **New Feature**: Developed CasePerson to contain more fields (Pull Request [\#153](https://github.com/AY2021S1-CS2103-F09-2/tp/pull/153), [\#235](https://github.com/AY2021S1-CS2103-F09-2/tp/pull/235))
   * What it does: Users can specify the name, sex, phone, email and address when adding a suspect, witness or victim to the case.
   Name, sex and phone are compulsory fields used to identify two different suspects/victims/witnesses, while other fields are optional.
   * Justification: This feature improves the product as it provides more depth to the product, allowing users to specify more details related to the person to be added to the case. 
   This gives more importance to the added CasePerson rather than just having a name, as the CasePersons could be contacted with the extra information provided. 
   Within each category, the compulsory fields identify the specific CasePerson to prevent duplicates.
-  * Highlights: This enhancement affects existing commands and commands to be added in the future. 
-  For instance, it affects the `add` and `edit` commands for CasePersons due to the different equality checks.
+  * Highlights: This enhancement affects existing commands and commands to be added in the future, such as the `add` and `edit` commands for CasePersons.
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=constancensq&sort=groupTitle&sortWithin=title&since=2020-08-14&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)
 
 * **Project management**:
   * Code Quality and Standardisation:
-    * Ensured that code follows Coding Styles and Principles as specified in the Textbook 
     * Increased defensiveness of code: added assertion statements 
     * Standardised message usages for commands
     * Abstracted out common code to a method
-    
   * Managed the recording of demo videos for `v1.2` and `v1.3` 
   
 * **Enhancements to existing features**:
@@ -54,7 +51,7 @@ Given below are my contributions to the project.
   * User Guide:
     * Added documentation for the features `archive`, `unarchive` (Pull Request [\#170](https://github.com/AY2021S1-CS2103-F09-2/tp/pull/170/files)) and all `list` features (Pull Request [\#179](https://github.com/AY2021S1-CS2103-F09-2/tp/pull/179/files))
     * Tweaked the existing documentation of feature `find` to describe the augmented behavior (Pull Request [\#170](https://github.com/AY2021S1-CS2103-F09-2/tp/pull/170/files))
-    * Did minor tweaks to existing documentation of features for `delete` (Pull Request [\#190](https://github.com/AY2021S1-CS2103-F09-2/tp/pull/190/files))
+    * Minor tweaks to documentation of features for `delete` (Pull Request [\#190](https://github.com/AY2021S1-CS2103-F09-2/tp/pull/190/files))
     
   * Developer Guide:
     * Modified the UML Diagram for Model to show `Case` and `CasePerson` fields (Pull Request [\#147](https://github.com/AY2021S1-CS2103-F09-2/tp/pull/147))

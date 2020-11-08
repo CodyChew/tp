@@ -31,9 +31,6 @@ Given below are my contributions to the project.
   * What it does: The user can now remove a `Description` from a `Case` by calling `delete desc`. It does not allow deleting of a non-existent(i.e. blank) description.
   * Highlights: This enhancement builds on existing commands. It follows existing design structures for its implementation. It was carefully designed to integrate with the existing commands.   
 
-
-* **New Feature**: Added a history command that allows the user to navigate to previous commands using up/down keys.
-
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=jargonx&sort=groupTitle&sortWithin=title&since=2020-08-14&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)
 
 * **Project management**:
@@ -53,8 +50,7 @@ Given below are my contributions to the project.
 * **Documentation**:
   * User Guide:
     * Updated the command formats for all the features. (Pull Request [\#135](https://github.com/AY2021S1-CS2103-F09-2/tp/pull/135))
-    * Updated the Quick Start guide. (Pull Request [\#178](https://github.com/AY2021S1-CS2103-F09-2/tp/pull/178))
-    * Made minor cosmetic tweaks to all edit case persons commands for better understanding. (Pull Request [\#178](https://github.com/AY2021S1-CS2103-F09-2/tp/pull/178))
+    * Updated the Quick Start guide and made minor cosmetic tweaks to all edit case persons commands for better understanding. (Pull Request [\#178](https://github.com/AY2021S1-CS2103-F09-2/tp/pull/178))
   * Developer Guide:
     * Updated the `Logic` Segment of the Documentation. Included Sequence Diagrams for the Components for clarity. (Pull Request [\#154](https://github.com/AY2021S1-CS2103-F09-2/tp/pull/154))
 

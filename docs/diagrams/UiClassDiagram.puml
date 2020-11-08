@@ -10,18 +10,13 @@ Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
 Class HelpWindow
-Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
-Class StatusBarFooter
-Class CommandBox
-Class DocumentListPanel
-Class DocumentCard
-Class CasePersonListPanel
-Class CasePersonCard
 Class Index
 Class ArchiveStatus
 Class TabStatus
+
+package UIComponents <<Rectangle>> {
+}
+
 }
 
 package Model <<Rectangle>> {
@@ -41,53 +36,33 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
-MainWindow --> HelpWindow
-MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
-MainWindow *-down-> StatusBarFooter
-MainWindow *-down-> DocumentListPanel
-MainWindow *-down-> CasePersonListPanel
-MainWindow *-down-> PersonListPanel
 
-
-DocumentListPanel -down--> DocumentCard
-CasePersonListPanel -down--> CasePersonCard
-PersonListPanel -down--> PersonCard
+UiManager -right-> Logic
+MainWindow -right-> Logic
 
 MainWindow -left-|> UiPart
-
-ResultDisplay --|> UiPart
-CommandBox --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow --|> UiPart
-DocumentListPanel --|> UiPart
-DocumentCard ---|> UiPart
-CasePersonListPanel --|> UiPart
-CasePersonCard ---|> UiPart
-PersonListPanel --|> UiPart
-PersonCard ---|> UiPart
-
-PersonCard ..> Model
-UiManager -right-> Logic
-MainWindow -left-> Logic
-MainWindow --> Index
-MainWindow --> ArchiveStatus
-MainWindow --> TabStatus
-
-Index ..> State
-ArchiveStatus ..> State
-TabStatus ..> State
 
 TabStatus -[hidden]left- ArchiveStatus
 ArchiveStatus -[hidden]left- Index
 Index -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- PersonListPanel
-PersonListPanel -[hidden]left- CasePersonListPanel
-CasePersonListPanel -[hidden]left- DocumentListPanel
-DocumentListPanel -[hidden]left- CommandBox
-CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
+HelpWindow -[hidden]left- UIComponents
 
+MainWindow --> HelpWindow
+HelpWindow --|> UiPart
+
+MainWindow *-left-> UIComponents
+UIComponents --|> UiPart
 
 MainWindow -[hidden]-|> UiPart
+
+MainWindow --> Index
+MainWindow --> ArchiveStatus
+MainWindow --> TabStatus
+
+Index .down.> State
+ArchiveStatus .down.> State
+TabStatus .down.> State
+
+UIComponents .down.> Model
+
 @enduml

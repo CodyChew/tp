@@ -13,6 +13,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 --------------------------------------------------------------------------------------------------------------------
 
+<div style="page-break-after: always;"></div>
 ## **Design**
 
 ### Architecture
@@ -52,6 +53,8 @@ For state component, it is managed by two classes:
 
 Example of architecture: The `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class which implements the `Logic` interface.
 
+<div style="page-break-after: always;"></div>
+
 ![Class Diagram of the Logic Component](images/LogicClassDiagram.png)
 
 **How the architecture components interact with each other**
@@ -62,6 +65,8 @@ The *Sequence Diagram* below shows how the components interact with each other f
 
 The sections below give more details of each component.
 
+<div style="page-break-after: always;"></div>
+
 ### UI component
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
@@ -69,7 +74,9 @@ The sections below give more details of each component.
 **API** :
 [`Ui.java`](https://github.com/AY2021S1-CS2103-F09-2/tp/blob/master/src/main/java/seedu/pivot/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class. The Class Diagram below shows the components in greater detail. Each component of the MainWindow is a composition. 
+
+![Structure of the UI Components](images/UiComponentsClassDiagram.png)
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2021S1-CS2103-F09-2/tp/blob/master/src/main/java/seedu/pivot/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2021S1-CS2103-F09-2/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
@@ -79,12 +86,16 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 * Listens for changes to `State` data so that the UI can be updated with the modified data.
 
+<div style="page-break-after: always;"></div>
+
 The example for observing states is illustrated with the Sequence Diagram below.
 The `MainWindow` observes the `UiStateManager` for any changes to its internal state.
 Upon invoking `open case 1`, the state changes and the `MainWindow` if notified by its `Observer`.
 It then retrieves the information it requires and displays on its display panel.
 
 ![Structure of the Ui Component when updating state](images/UiStateSequenceDiagram.png)
+
+<div style="page-break-after: always;"></div>
 
 ### Logic component
 
@@ -131,6 +142,8 @@ The `Model`,
 The detailed class diagram for the investigation case package is shown below. 
 ![Investigation Case Class Diagram](images/InvestigationCaseClassDiagram.png)
 
+<div style="page-break-after: always;"></div>
+
 ### Storage component
 
 ![Structure of the Storage Component](images/StorageClassDiagram.png)
@@ -140,6 +153,8 @@ The detailed class diagram for the investigation case package is shown below.
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save Pivot's data in json format and read it back.
+
+<div style="page-break-after: always;"></div>
 
 ### State component
 
@@ -264,6 +279,8 @@ The following activity diagram shows a successful delete document operation at a
    - Pros: A document file deletion on the user's local machine will not affect loading the current cases in the Json
    file
    - Cons: User will only know that the file doesn't exist when he opens it
+
+<div style="page-break-after: always;"></div>
 
 * **Alternative 2:** A reference object must be both valid and exists to be created.
      - Pros: A document is only created when we know there is a valid and existing `Reference`. Easier for testing.
@@ -466,6 +483,8 @@ The Sequence Diagram below shows how the `UnarchiveCommand` works.
 
 ![UnarchiveSequenceDiagram](images/UnarchiveSequenceDiagram.png)
 
+<div style="page-break-after: always;"></div>
+
 The `unarchive case` command works in a similar manner to the `archive case` command, 
 except that it sets the newly created `Case` object's `archiveStatus` as `ArchiveStatus.DEFAULT` before
 adding it to the `model`.
@@ -530,6 +549,7 @@ meant that we had to create a `references` folder on start-up, as well as proper
 The implementation of the feature had to be carefully designed, as we had to consider the different ways a user might use 
 the program and handle them properly such that the program will not crash (e.g. if the user deletes a document that they added to PIVOT).
 
+<div style="page-break-after: always;"></div>
 
 The `Archive` feature also required a careful consideration of the design alternatives, so as to show a different view in the GUI. 
 We also had to consider how this feature would affect the existing commands.
@@ -618,6 +638,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | careless investigator                      | undo my previous command                                                           | quickly remove the changes from my previous command                     |
 | `* * *`  | expert investigator                        | undo and redo multiple commands                                                    | navigate to the state of the program exactly as I need                  |
 | `* * *`  | investigator                               | close the application when I am done using it                                      | safely exit the application                                             |
+
+<div style="page-break-after: always;"></div>
 
 ### Use cases
 
@@ -752,6 +774,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 5. PIVOT shows a filtered list of the investigation cases which contain any search term
 
    Use case ends.
+
+<div style="page-break-after: always;"></div>
 
 **Extensions**
 * 2a. The list is empty.
@@ -1086,6 +1110,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
+<div style="page-break-after: always;"></div>
+
 * 3a. The given index is invalid.
     * 3a1. PIVOT shows an error message.
 
@@ -1179,6 +1205,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4.  The system should not take above 2 seconds to execute any command.
 
+<div style="page-break-after: always;"></div>
+
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
@@ -1205,38 +1233,126 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Run the command `java -jar pivot.jar` using the Command Line at the home folder. 
+       Expected: Shows the GUI with a set of sample cases. The window size may not be optimum.
 
 1. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+   1. Re-launch the app by running the command `java -jar pivot.jar` using the Command Line at the home folder to start the app.<br>
        Expected: The most recent window size and location is retained.
+      
+### Deleting a Case
 
-1. _{ more test cases …​ }_
+1. Deleting a Case while all Cases are being shown
 
-### Deleting a person
+    1. Prerequisites: List all cases using the `list case` command. Multiple cases in the list.
 
-1. Deleting a person while all persons are being shown
+    1. Test case: `delete case 1`<br>
+     Expected: First case is deleted from the list. Details of the deleted case shown in the result display.
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+    1. Test case: `delete case 0`<br>
+     Expected: No case is deleted. Error details shown in the result display. List of cases remains the same.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    1. Other incorrect delete commands to try: `delete case`, `delete case x`, `...` (where x is larger than the list size)<br>
+     Expected: Similar to previous.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+### Archive
 
-1. _{ more test cases …​ }_
+1. Archiving a Case while all Cases are being shown
+    
+    1. Prerequisites: List all cases using the `list case` command. Multiple cases in the list.
+	
+    1. Test case: `archive case 1`<br>  
+	Expected: First case is archived. Details of the archived case shown in the result display. 
+	Doing a `list archive` should show the archived case at the bottom of the list of archive cases.
+
+    1. Test case: `archive case 0`<br>
+	Expected: No case is archived. Error details shown in the result display. 
+	List of cases remains the same.
+    
+    1. Other incorrect archive commands to try: `archive`, `archive case`, `archive case x` (where x is larger than the list size)<br>
+        Expected: Similar to previous.
+
+    1. Unarchive commands can be tested in a similar fashion, with the prerequisites: List all archived cases using the `list archive` command. Multiple archived cases in the list.
+
+### Undo
+1. Undoing a command
+
+    1. Prerequisites: No prior commands entered into the system. PIVOT starts with multiple cases in the list.
+        
+    1. Test case: `undo`<br>
+         Expected: Nothing is undone. Error details shown in the result display. List of cases remains the same.
+    
+    1. Test case: `add case t:Ang Murders`, `open case 1` then `undo`<br>
+         Expected: The added case is removed from the list. PIVOT returns back to the main page. The details of the undone command is shown in the result display.
+    
+    1. Test case: `open case 1`, `edit title t:New Title` then `undo`<br>
+         Expected: The edited title is undone and the previous title of the case is displayed. PIVOT remains at the case page. The details of the undone command is shown in the result display.
+
+### Redo
+1. Redoing a command
+
+    1. Prerequisites: No prior commands entered into the system. PIVOT starts with multiple cases in the list.
+  	
+    1. Test case: `redo`<br>
+        Expected: Nothing is redone. Error details shown in the result display. List of cases remains the same.
+	
+    1. Test case: `add case t:Ang Murders`, `undo`, `redo` <br>
+  	    Expected: The added case is removed from the list. The details of the redone command is shown in the result display.
+
+    1. Test case: `add case t:Ang Murders`,`undo`, `add case t:Bishan Theft`, `redo` <br>
+        Expected: The command `add case t:Ang Murders` is not redone. Error details shown in the result display. List of cases remains the same as after the `add case t:Bishan Theft` command is executed.
+
+<div style="page-break-after: always;"></div>
+
+### Adding a document
+
+1. Adding a document in a case
+
+    1. Prerequisites: Open a case with `open case INDEX` using a valid INDEX. 
+
+    1. Test case: `add doc n:NAME r:REFERENCE`<br>
+     Expected: The given NAME and REFERENCE is valid. New document added to the case and shown in the document list.
+
+    1. Test case: `add doc n:NAME r:REFERENCE`<br>
+     Expected: The given NAME or REFERENCE is invalid. Error details shown in the result display. New document is not added.
+
+### Opening a document
+
+1. Opening a document in a case with a document list 
+
+    1. Prerequisites: Open a case with `open case INDEX` using a valid INDEX and list the documents with `list doc`. Multiple documents being shown.
+
+    1. Test case: `open doc 1`<br>
+     Expected: The reference of document 1 is valid. The document representing this file opens up in the Desktop.
+
+    1. Test case: `open doc 1`<br>
+     Expected: The reference of document 1 does not exist. The document representing this file does not open.Error details shown in the result display.
+
+    1. Test case: `open doc 0`<br>
+     Expected: No document is opened. Error details shown in the result display.
+
+<div style="page-break-after: always;"></div>
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
-
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
+1. Dealing with missing data files for documents
+    1. Prerequisites: PIVOT starts with multiple cases in the list and the file `abc.txt` in the `./references` folder.
+    1. Steps to simulate:
+        1. A user adds a valid document in PIVOT with reference `abc.txt` using `add doc n:document r:abc.txt` in an opened case. 
+        1. The user manually deletes the file `abc.txt` in the `./references` folder. 
+        1. The user tries to open the document using `open doc INDEX`. The given INDEX is the INDEX of the document in the document list.
+    1. Expected behavior:
+        1. There is no such file and the document is unable to be opened. Error details shown in the result display.
+    
+2. Dealing with missing `data` folder which contains `pivot.json` data file. 
+    1. Steps to simulate:
+        1. The user deletes the `data` folder and runs the command `java -jar pivot.jar` using the Command Line at the home folder where `pivot.jar` is located.
+    1. Behavior:
+        1. PIVOT creates the sample file `test1.txt` in the `./references` folder for the sample data.
+        1. The user executes a command `add case t:Ang Robbery`.
+        1. The `data` folder will appear in the root directory and contains the `pivot.json` file with existing sample data.
+    
